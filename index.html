@@ -9,7 +9,7 @@
   <meta name="description" content="Logiplex offre des solutions WiFi haute vitesse, caméras 4K, interphones intelligents et téléphonie IP clé en main pour immeubles de 10+ logements au Québec. Augmentez vos revenus locatifs dès aujourd'hui.">
   <meta name="keywords" content="WiFi immeuble multilogements Québec, internet appartement locatif, solution télécom immeuble, résidence aînés connectée, interphone intelligent immeuble, caméra sécurité multilogement">
   <meta name="author" content="Logiplex inc.">
-  <meta name="robots" content="index, follow">
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
   <link rel="canonical" href="https://logiplex.ca">
   <link rel="alternate" hreflang="fr" href="https://logiplex.ca/">
   <link rel="alternate" hreflang="en" href="https://logiplex.ca/?lang=en">
@@ -22,7 +22,24 @@
   <meta property="og:description" content="WiFi, caméras 4K, interphones, téléphonie IP et IPTV — infrastructure télécom clé en main pour immeubles de 10+ logements au Québec. Augmentez vos revenus locatifs.">
   <meta property="og:type" content="website">
   <meta property="og:locale" content="fr_CA">
+  <meta property="og:locale:alternate" content="en_CA">
   <meta property="og:url" content="https://logiplex.ca">
+  <meta property="og:image" content="https://logiplex.ca/og-image.svg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Logiplex — Connectez chaque logement. Augmentez chaque revenu.">
+  <meta property="og:site_name" content="Logiplex">
+
+  <!-- Twitter / X Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Logiplex — Solutions WiFi pour immeubles multilogements au Québec">
+  <meta name="twitter:description" content="WiFi, caméras 4K, interphones, téléphonie IP et IPTV clé en main pour immeubles de 10+ logements au Québec.">
+  <meta name="twitter:image" content="https://logiplex.ca/og-image.svg">
+
+  <!-- iOS PWA -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Logiplex">
 
   <!-- Schema.org JSON-LD — LocalBusiness + FAQPage + Services -->
   <script type="application/ld+json">
@@ -129,7 +146,6 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <!-- Chargement non-bloquant des polices pour meilleur LCP -->
-  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500&display=swap">
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
   <noscript><link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"></noscript>
   <!-- Polices de secours système pendant le chargement -->
@@ -137,11 +153,11 @@
     :root { --ff-head: 'Space Grotesk', system-ui, -apple-system, sans-serif; --ff-body: 'Inter', system-ui, -apple-system, sans-serif; }
   </style>
 
-  <link rel="stylesheet" href="css/style.min.css?v=12">
+  <link rel="stylesheet" href="css/style.min.css?v=15">
 </head>
 <body>
   <!-- Lien d'accessibilité : aller au contenu principal -->
-  <a href="#solutions" class="skip-link">Aller au contenu principal / Skip to main content</a>
+  <a href="#main-content" class="skip-link">Aller au contenu principal / Skip to main content</a>
 
   <!-- ╔══════════════════════════════╗
        ║  BARRE DE NAVIGATION         ║
@@ -191,6 +207,8 @@
       <a href="#contact" class="mobile-cta" data-fr="Obtenir une soumission" data-en="Get a Quote">Obtenir une soumission</a>
     </div>
   </nav>
+
+  <main id="main-content">
 
   <!-- ╔══════════════════════════════╗
        ║  HERO — PLEIN ÉCRAN ANIMÉ    ║
@@ -265,7 +283,7 @@
       <div class="hdc-header">
         <span class="hdc-dot"></span>
         <span class="hdc-live" data-fr="Connexion active" data-en="Active connection">Connexion active</span>
-        <span class="hdc-time">En direct</span>
+        <span class="hdc-time" data-fr="En direct" data-en="Live">En direct</span>
       </div>
       <div class="hdc-building">
         <span class="hdc-name">Tour des Érables</span>
@@ -824,9 +842,9 @@
           <div class="calc-left">
             <p class="calc-section-label" data-fr="Nombre de logements" data-en="Number of units">Nombre de logements</p>
             <input type="range" class="calc-slider" id="calcSlider"
-                   min="1" max="100" value="20" step="1" style="--pct:19.19%"
+                   min="10" max="100" value="20" step="1" style="--pct:11.11%"
                    aria-label="Nombre de logements"
-                   aria-valuemin="1" aria-valuemax="100" aria-valuenow="20">
+                   aria-valuemin="10" aria-valuemax="100" aria-valuenow="20">
             <div class="calc-units-display">
               <span id="calcUnitsNum">20</span>
               <span class="calc-units-suffix" data-fr="logements" data-en="units">logements</span>
@@ -1236,8 +1254,9 @@
 
         <!-- Formulaire -->
         <div class="contact-form-wrapper reveal" data-delay="200">
-          <form class="contact-form" id="contactForm" name="contact" data-netlify="true" novalidate>
+          <form class="contact-form" id="contactForm" name="contact" data-netlify="true" data-netlify-honeypot="bot-field" novalidate>
             <input type="hidden" name="form-name" value="contact">
+            <p style="display:none;"><label>Ne pas remplir : <input name="bot-field"></label></p>
             <div class="form-row">
               <div class="form-group">
                 <label for="name" data-fr="Nom complet *" data-en="Full name *">Nom complet *</label>
@@ -1299,6 +1318,8 @@
   <!-- ╔══════════════════════════════╗
        ║  FOOTER                      ║
        ╚══════════════════════════════╝ -->
+  </main>
+
   <footer id="footer" role="contentinfo">
     <div class="container">
       <div class="footer-grid">

@@ -551,25 +551,26 @@ function initDashboardTicker() {
   if (!nameEl) return;
 
   const buildings = [
-    { name:'Tour des Érables', units:'120 logements · Montréal', monthly:'+10 200 $', tenants:'118 / 120', pct:'98.3%', fill:'98.3' },
-    { name:'Résidence Le Plateau', units:'48 logements · Montréal', monthly:'+4 080 $', tenants:'47 / 48', pct:'97.9%', fill:'97.9' },
-    { name:'Les Condos Laval', units:'200 logements · Laval', monthly:'+17 000 $', tenants:'196 / 200', pct:'98.0%', fill:'98.0' },
-    { name:'Le Saint-Laurent', units:'76 logements · Québec', monthly:'+6 460 $', tenants:'74 / 76', pct:'97.4%', fill:'97.4' },
+    { name:'Tour des Érables', unitsFr:'120 logements · Montréal', unitsEn:'120 units · Montréal', monthly:'+10 200 $', tenants:'118 / 120', pct:'98.3%', fill:'98.3' },
+    { name:'Résidence Le Plateau', unitsFr:'48 logements · Montréal', unitsEn:'48 units · Montréal', monthly:'+4 080 $', tenants:'47 / 48', pct:'97.9%', fill:'97.9' },
+    { name:'Les Condos Laval', unitsFr:'200 logements · Laval', unitsEn:'200 units · Laval', monthly:'+17 000 $', tenants:'196 / 200', pct:'98.0%', fill:'98.0' },
+    { name:'Le Saint-Laurent', unitsFr:'76 logements · Québec', unitsEn:'76 units · Québec', monthly:'+6 460 $', tenants:'74 / 76', pct:'97.4%', fill:'97.4' },
   ];
   let idx = 0;
 
   function rotate() {
     idx = (idx + 1) % buildings.length;
     const b = buildings[idx];
+    const lang = document.documentElement.lang || 'fr';
     const card = nameEl.closest('.hero-dashboard-card');
     if (card) { card.style.opacity = '0'; card.style.transition = 'opacity 0.4s'; }
     setTimeout(() => {
       nameEl.textContent = b.name;
-      if (unitsEl) unitsEl.textContent = b.units;
+      if (unitsEl) unitsEl.textContent = lang === 'en' ? b.unitsEn : b.unitsFr;
       if (monthlyEl) monthlyEl.textContent = b.monthly;
       if (tenantsEl) tenantsEl.textContent = b.tenants;
       if (barFill) barFill.style.width = b.fill + '%';
-      if (barLabel) barLabel.textContent = 'Taux d\'adoption: ' + b.pct;
+      if (barLabel) barLabel.textContent = (lang === 'en' ? 'Adoption rate: ' : 'Taux d\'adoption: ') + b.pct;
       if (card) { card.style.opacity = '1'; }
     }, 400);
   }
@@ -657,7 +658,7 @@ function initCalculateur() {
     monthlyEl.textContent = fmt(monthly, lang);
     annualEl.textContent = fmtAnnual(annual, lang);
     slider.setAttribute('aria-valuenow', units);
-    const pct = ((units - 1) / (100 - 1)) * 100;
+    const pct = ((units - 10) / (100 - 10)) * 100;
     slider.style.setProperty('--pct', pct + '%');
   }
 

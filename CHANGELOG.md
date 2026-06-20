@@ -2,6 +2,56 @@
 
 ---
 
+## Cycle 17 — Polish final : calculateur, bilinguisme ticker, meta iOS (2026-06-20)
+### Problèmes identifiés
+- Calculateur : `min="1"` alors que Logiplex exige 10+ logements → un visiteur pouvait glisser à 1 unité et voir `85 $/mois`, incohérent avec le message "10+ logements" affiché partout sur la page
+- Dashboard ticker : les champs `units` et `barLabel` étaient hardcodés en français même en mode EN (`'120 logements · Montréal'`, `'Taux d'adoption: '`)
+- `"En direct"` dans la carte hero n'avait aucun attribut `data-fr`/`data-en` → restait en français lors du toggle de langue
+### Fix appliqué
+- `index.html` : slider `min="1"` → `min="10"`, `aria-valuemin="1"` → `"10"`, `--pct` initial `19.19%` → `11.11%` (formule correcte pour value=20, min=10, max=100)
+- `js/main.js` : formule `(units - 1) / (100 - 1)` → `(units - 10) / (100 - 10)` dans `initCalculateur`
+- `js/main.js` : `buildings[]` enrichi avec `unitsFr`/`unitsEn` par bâtiment ; `rotate()` lit `document.documentElement.lang` pour choisir la bonne version ; `barLabel` utilise `'Adoption rate: '` vs `'Taux d\'adoption: '` selon la langue
+- `index.html` : `<span class="hdc-time">` → ajout `data-fr="En direct" data-en="Live"`
+### Résultat
+Calculateur cohérent avec la cible client (10+ logements). Dashboard card et ticker 100% bilingues, aucun texte français fixe visible en mode EN.
+
+---
+
+## Cycle 16 — SEO, accessibilité et cache (2026-06-20)
+### Problèmes identifiés
+- Preload Google Fonts avec URL différente de la feuille de style réellement chargée → warning navigateur "resource was preloaded but not used", request réseau inutile
+- Aucun élément `<main>` → skip-link pointait vers `#solutions` sans landmark `<main>` (échec WCAG 2.4.1 Bypass Blocks)
+- `og:image` absent → partage sur LinkedIn/Facebook/Twitter sans preview visuelle
+- Twitter Card meta tags absents → pas de `summary_large_image` sur X/Twitter
+- CSS cache busting à `v=12` → les visiteurs avec cache voient une version CSS périmée depuis les cycles 12–15
+- Aucun honeypot → formulaire Netlify exposé aux soumissions automatisées (spam)
+- `og:locale:alternate`, `og:site_name`, meta iOS absents
+### Fix appliqué
+- Suppression du `<link rel="preload">` dupliqué/divergent (le `media="print"` + `onload` est déjà non-bloquant)
+- Ajout `<main id="main-content">` autour de toutes les sections (`#hero` → `#contact`) ; skip-link mis à jour vers `#main-content`
+- Création de `og-image.svg` (1200×630) : fond `#0A0E27`, logo hexagone, headline gradient, 3 stats cards
+- Ajout `<meta property="og:image">`, `og:image:width/height/alt`, `og:site_name`, `og:locale:alternate`
+- Ajout `<meta name="twitter:card" content="summary_large_image">` + title/description/image
+- Ajout `<meta name="apple-mobile-web-app-capable">`, `apple-mobile-web-app-status-bar-style`, `apple-mobile-web-app-title`
+- CSS version `v=12` → `v=15`
+- Ajout `data-netlify-honeypot="bot-field"` sur le form + champ `bot-field` caché
+- `robots` meta enrichi : `max-snippet:-1, max-image-preview:large, max-video-preview:-1`
+### Résultat
+Site partage correctement une image de prévisualisation sur tous les réseaux sociaux. Landmark `<main>` présent pour la navigation au clavier. Cache busting à jour. Spam bots filtrés par Netlify.
+
+---
+
+## Cycle 14 — Accessibilité : prefers-reduced-motion dans animerCompteur (2026-06-20)
+### Problème identifié
+`initCarrousel` vérifiait `prefers-reduced-motion` depuis Cycle 0 pour désactiver l'auto-avance — mais `animerCompteur` (animation RAF des compteurs de stats : 200+, 99.8%, 40+, 72h) ignorait totalement cette préférence. Les utilisateurs ayant activé "Réduire les animations" dans leur OS (accessibilité Windows/macOS/iOS/Android) continuaient de voir les 1900ms de comptage même si le CSS avait déjà supprimé les animations CSS via `animation-duration:0.01ms`.
+### Fix appliqué
+- `js/main.js` + `js/main.min.js` : au début de `animerCompteur`, ajout d'un check `window.matchMedia('(prefers-reduced-motion:reduce)').matches` → si vrai, affichage immédiat de `cible.toLocaleString('fr-CA')` sans RAF, sans délai
+- Cohérence avec `initCarrousel` qui utilise le même pattern depuis Cycle 0
+### Résultat
+Comportement uniforme : toutes les animations JS (carrousel, compteurs) respectent `prefers-reduced-motion`. WCAG 2.3.3 : Animation from Interactions (AAA) satisfaite pour cette fonction.
+
+---
+
 ## Cycle 13 — Favicon SVG + theme-color (2026-06-20)
 ### Problème identifié
 Le site n'avait aucun favicon — les onglets de navigateur affichaient une icône générique (globe blanc ou blanc vide). Pour un site B2B corporatif visant des propriétaires d'immeubles, l'absence de favicon nuit à la crédibilité et au sentiment de finition professionnelle. De plus, sur mobile Chrome/Android, la barre d'adresse restait gris par défaut au lieu d'adopter la couleur de marque.
