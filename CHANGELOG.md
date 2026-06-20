@@ -2,6 +2,17 @@
 
 ---
 
+## Cycle 8 — Clarté du message hero : 5 services complets (2026-06-20)
+### Problème identifié
+Le sous-titre du hero ne mentionnait que 3 des 5 services (WiFi, caméras, téléphonie IP) — omettant les **interphones intelligents** et l'**IPTV**, pourtant au cœur de l'offre Logiplex. Un prospect B2B qui scanne la page d'accueil ne voyait pas la gamme complète au premier coup d'oeil.
+### Fix appliqué
+- Réécriture du `data-fr` et `data-en` du `.hero-sub` pour lister les 5 services : "WiFi haute vitesse, caméras 4K, interphones intelligents, téléphonie IP et IPTV — infrastructure télécom complète clé en main pour immeubles de 10+ logements au Québec. Gérée par nos experts, 24/7."
+- Mise à jour cohérente du `og:description` (Open Graph)
+### Résultat
+Le message est maintenant complet et spécifique au premier écran — un propriétaire d'immeuble comprend immédiatement les 5 piliers de l'offre
+
+---
+
 ## Cycle 7 — Contraste section-tag sur fonds clairs (2026-06-20)
 ### Problème identifié
 Les étiquettes `.section-tag` ("Avantages", "Marchés servis") dans les sections `section-light` (#pourquoi, #marches) utilisaient `color: #00E5FF` (cyan) sur fond `#F4F7FF`. Ratio de contraste ≈ 1.65:1 — échec total WCAG AA (minimum 4.5:1 requis). Le texte était quasi-illisible sur fond clair. Les pseudo-éléments `::before` / `::after` (lignes décoratives) subissaient le même problème.
