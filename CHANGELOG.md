@@ -2,6 +2,19 @@
 
 ---
 
+## Cycle 12 — Micro-interaction : hover animation sur icônes marchés (2026-06-20)
+### Problème identifié
+Les `.marche-icon svg` dans la section `#marches` n'avaient aucune animation au hover de la carte. Les `.sol-icon svg` avaient déjà `scale(1.2) rotate(-8deg) + drop-shadow cyan` (Cycle 5). Incohérence : les deux types de cartes devraient avoir un comportement similaire pour une esthétique professionnelle uniforme.
+### Fix appliqué
+- `.marche-icon svg` : ajout `transition: transform 0.35s cubic-bezier(0.34,1.56,0.64,1), filter 0.3s`
+- `.marche-card:hover .marche-icon svg` : `scale(1.18) rotate(-6deg) + drop-shadow(0 2px 8px rgba(37,99,235,0.3))` (blue vs cyan pour correspondre au thème de la section light)
+- `.marche-icon` : background `rgba(59,130,246,0.08)` → `0.16` au hover (renforcement léger)
+- Version CSS → v=12
+### Résultat
+Cohérence des micro-interactions entre section sombre (sol-cards, cyan) et section claire (marche-cards, bleu). Même pattern = expérience unifiée.
+
+---
+
 ## Cycle 11 — Calculateur : correction des valeurs initiales (2026-06-20)
 ### Problème identifié
 Le slider démarrait à `value="20"` (20 logements) mais les valeurs affichées dans le HTML étaient `4 250 $/mois` et `51 000 $/an` — correspondant à 50 unités (l'ancienne valeur par défaut avant le changement de slider 50→20). Flash de données incorrectes avant que le JS se charge. De plus, le `--pct` CSS fallback était de 8% au lieu de 19.19% (valeur correcte pour 20/100 sur la formule).
