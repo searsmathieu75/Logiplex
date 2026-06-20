@@ -81,6 +81,9 @@ address { font-style: normal; }
 
 .section-dark  { background: var(--bg-dark); }
 .section-light { background: var(--bg-light); color: var(--text-dark); }
+.section-light .section-tag { color: var(--blue-dark); }
+.section-light .section-tag::before,
+.section-light .section-tag::after { background: var(--blue-dark); }
 
 /* ── En-tête de section ───────────────────────────────────── */
 .section-header {

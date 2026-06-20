@@ -2,6 +2,17 @@
 
 ---
 
+## Cycle 7 — Contraste section-tag sur fonds clairs (2026-06-20)
+### Problème identifié
+Les étiquettes `.section-tag` ("Avantages", "Marchés servis") dans les sections `section-light` (#pourquoi, #marches) utilisaient `color: #00E5FF` (cyan) sur fond `#F4F7FF`. Ratio de contraste ≈ 1.65:1 — échec total WCAG AA (minimum 4.5:1 requis). Le texte était quasi-illisible sur fond clair. Les pseudo-éléments `::before` / `::after` (lignes décoratives) subissaient le même problème.
+### Fix appliqué
+- Ajout dans `style.css` / `style.min.css` : `.section-light .section-tag { color: var(--blue-dark); }` et `::before/::after { background: var(--blue-dark); }` — `--blue-dark: #2563EB` donne un ratio ≈ 4.63:1 sur `#F4F7FF` ✓ WCAG AA
+- Version CSS → v=9
+### Résultat
+Les sections "Avantages" et "Marchés servis" ont maintenant un contraste lisible et cohérent avec la palette B2B (bleu foncé au lieu de cyan sur fond blanc)
+
+---
+
 ## Cycle 6 — Hero desktop : layout deux colonnes sans overlap (2026-06-20)
 ### Problème identifié
 La `.hero-dashboard-card` était en `position:absolute; right:...; top:50%` tandis que `.hero-content` était centré avec `margin-inline:auto; max-width:820px`. Sur les écrans 1200–1500px (laptops standard), la carte chevauchait de 100–140px le bord droit du bloc héro, cachant partiellement les stats. En parallèle, un bloc `<style>` inline avec `!important` dans le `<head>` conflit avec le CSS source.
