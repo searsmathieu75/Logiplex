@@ -302,7 +302,9 @@ function initScrollReveal() {
    COMPTEURS ANIMÉS
    ══════════════════════════════════════════════════════════ */
 function animerCompteur(el) {
-  const cible=parseInt(el.dataset.target,10), d0=performance.now(), dur=1900;
+  const cible=parseInt(el.dataset.target,10);
+  if(window.matchMedia('(prefers-reduced-motion:reduce)').matches){el.textContent=cible.toLocaleString('fr-CA');return;}
+  const d0=performance.now(), dur=1900;
   (function step(now) {
     const t=Math.min((now-d0)/dur,1), e=1-Math.pow(1-t,3);
     el.textContent=Math.round(e*cible).toLocaleString('fr-CA');

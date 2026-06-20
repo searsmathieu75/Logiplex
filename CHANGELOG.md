@@ -2,6 +2,18 @@
 
 ---
 
+## Cycle 13 — Favicon SVG + theme-color (2026-06-20)
+### Problème identifié
+Le site n'avait aucun favicon — les onglets de navigateur affichaient une icône générique (globe blanc ou blanc vide). Pour un site B2B corporatif visant des propriétaires d'immeubles, l'absence de favicon nuit à la crédibilité et au sentiment de finition professionnelle. De plus, sur mobile Chrome/Android, la barre d'adresse restait gris par défaut au lieu d'adopter la couleur de marque.
+### Fix appliqué
+- Création de `favicon.svg` : hexagone double + lettre "L", gradient cyan→bleu (`#00E5FF`→`#3B82F6`), fond `#0A0E27` avec `rx="6"` (coins arrondis pour apparence moderne), identique au logo navbar
+- Ajout `<link rel="icon" type="image/svg+xml" href="favicon.svg">` dans le `<head>` (après les hreflang)
+- Ajout `<meta name="theme-color" content="#0A0E27">` — peint la barre de navigation/adresse en bleu marine sur Chrome Android et Safari iOS
+### Résultat
+L'onglet navigateur affiche maintenant l'icône Logiplex (hexagone L cyan-bleu) sur fond sombre. Les SVG favicons sont supportés par Chrome, Firefox, Edge et Safari 16+. Sur mobile Android, la barre d'interface système adopte `#0A0E27` pour une expérience immersive cohérente.
+
+---
+
 ## Cycle 12 — Micro-interaction : hover animation sur icônes marchés (2026-06-20)
 ### Problème identifié
 Les `.marche-icon svg` dans la section `#marches` n'avaient aucune animation au hover de la carte. Les `.sol-icon svg` avaient déjà `scale(1.2) rotate(-8deg) + drop-shadow cyan` (Cycle 5). Incohérence : les deux types de cartes devraient avoir un comportement similaire pour une esthétique professionnelle uniforme.
