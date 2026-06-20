@@ -1233,7 +1233,7 @@ a.contact-detail:hover { color: var(--cyan); }
   color: rgba(136,153,187,0.7);
 }
 
-.footer-col h4 {
+.footer-col h3 {
   font-family: var(--ff-head);
   font-size: 0.8125rem;
   font-weight: 600;
@@ -1909,7 +1909,7 @@ body.has-custom-cursor textarea { cursor: none !important; }
 /* ── BANDE PARTENAIRES ÉQUIPEMENTS ───────────────────────── */
 .partners-band {
   padding: 36px 0;
-  background: rgba(255,255,255,0.014);
+  background: #0D112A;
   border-top: 1px solid rgba(255,255,255,0.05);
   border-bottom: 1px solid rgba(255,255,255,0.05);
 }
@@ -1926,35 +1926,37 @@ body.has-custom-cursor textarea { cursor: none !important; }
   flex-wrap: wrap;
 }
 .partner-item {
-  opacity: 0.32;
-  transition: opacity var(--t-fast);
+  transition: color var(--t-fast);
   text-align: center;
 }
-.partner-item:hover { opacity: 0.68; }
 .partner-name {
   font-family: var(--ff-head);
   font-size: 0.9375rem;
   font-weight: 700;
-  color: var(--text-light);
+  color: #8FAACC;
   letter-spacing: 0.04em;
   display: block;
+  transition: color var(--t-fast);
 }
 .partner-cat {
   font-size: 0.65rem;
   font-weight: 500;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--text-muted);
+  color: #7A8BAD;
   margin-top: 2px;
   display: block;
+  transition: color var(--t-fast);
 }
+.partner-item:hover .partner-name { color: var(--text-light); }
+.partner-item:hover .partner-cat  { color: var(--text-muted); }
 
 /* ── BANDE DE CONFIANCE ──────────────────────────────────── */
 .trust-band {
   padding: 32px 0;
   border-top: 1px solid rgba(255,255,255,0.05);
   border-bottom: 1px solid rgba(255,255,255,0.05);
-  background: rgba(255,255,255,0.018);
+  background: #0E122B;
 }
 .trust-band-inner {
   max-width: var(--ctr-max);
@@ -1967,7 +1969,7 @@ body.has-custom-cursor textarea { cursor: none !important; }
   font-weight: 600;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: rgba(136,153,187,0.45);
+  color: var(--text-muted);
   margin-bottom: 22px;
 }
 .trust-logos {
@@ -1981,12 +1983,11 @@ body.has-custom-cursor textarea { cursor: none !important; }
   display: flex;
   align-items: center;
   gap: 8px;
-  opacity: 0.38;
-  transition: opacity var(--t-fast);
+  transition: color var(--t-fast);
 }
-.trust-logo:hover { opacity: 0.75; }
-.trust-logo svg { width: 22px; height: 22px; color: var(--text-light); flex-shrink: 0; }
-.trust-logo span { font-family: var(--ff-head); font-size: 0.8125rem; font-weight: 600; color: var(--text-light); letter-spacing: 0.02em; }
+.trust-logo svg { width: 22px; height: 22px; color: rgba(232,238,255,0.55); flex-shrink: 0; transition: color var(--t-fast); }
+.trust-logo span { font-family: var(--ff-head); font-size: 0.8125rem; font-weight: 600; color: rgba(232,238,255,0.55); letter-spacing: 0.02em; transition: color var(--t-fast); }
+.trust-logo:hover svg, .trust-logo:hover span { color: rgba(232,238,255,0.88); }
 
 /* ── CALCULATEUR DE REVENUS ──────────────────────────────── */
 .section-calculateur { background: linear-gradient(180deg, var(--bg-dark-2) 0%, var(--bg-dark) 100%); }

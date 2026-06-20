@@ -256,7 +256,10 @@ const OPTS={
 function appliquerLangue(lang) {
   document.documentElement.lang = lang;
   const btn=document.getElementById('langToggle');
-  if (btn) btn.textContent = lang==='fr'?'EN':'FR';
+  if (btn) {
+    btn.textContent = lang==='fr'?'EN':'FR';
+    btn.setAttribute('aria-label', lang==='fr' ? 'EN — Changer la langue' : 'FR — Switch language');
+  }
   document.querySelectorAll('[data-fr]').forEach(el => {
     const t=el.dataset[lang]; if (!t) return;
     if (t.includes('<')||t.includes('&')) el.innerHTML=t; else el.textContent=t;

@@ -155,7 +155,7 @@
     :root { --ff-head: 'Space Grotesk', system-ui, -apple-system, sans-serif; --ff-body: 'Inter', system-ui, -apple-system, sans-serif; }
   </style>
 
-  <link rel="stylesheet" href="css/style.min.css?v=15">
+  <link rel="stylesheet" href="css/style.min.css?v=16">
 </head>
 <body>
   <!-- Lien d'accessibilité : aller au contenu principal -->
@@ -167,11 +167,11 @@
   <nav id="navbar" aria-label="Navigation principale">
     <div class="nav-container">
       <!-- Logo -->
-      <a href="#" class="logo" aria-label="Logiplex — Accueil">
+      <a href="#" class="logo">
         <svg class="logo-icon" viewBox="0 0 32 32" fill="none" aria-hidden="true">
           <polygon points="16,2 29,9 29,23 16,30 3,23 3,9" fill="none" stroke="url(#logoGrad)" stroke-width="2"/>
           <polygon points="16,8 24,12.5 24,21.5 16,26 8,21.5 8,12.5" fill="url(#logoGrad)" opacity="0.15"/>
-          <text x="16" y="22" text-anchor="middle" font-family="Space Grotesk, sans-serif" font-weight="700" font-size="12" fill="url(#logoGrad)">L</text>
+          <path d="M12 9h3v11h6v3H12z" fill="url(#logoGrad)"/>
           <defs>
             <linearGradient id="logoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
               <stop offset="0%" stop-color="#00E5FF"/>
@@ -179,7 +179,7 @@
             </linearGradient>
           </defs>
         </svg>
-        <span>Logiplex</span>
+        <span>Logiplex</span><span class="sr-only"> — Accueil</span>
       </a>
 
       <!-- Liens desktop -->
@@ -193,7 +193,7 @@
       <!-- Actions nav -->
       <div class="nav-actions">
         <a href="#contact" class="nav-cta" data-fr="Obtenir une soumission" data-en="Get a Quote">Obtenir une soumission</a>
-        <button class="lang-toggle" id="langToggle" aria-label="Changer la langue / Switch language">EN</button>
+        <button class="lang-toggle" id="langToggle" aria-label="EN — Changer la langue">EN</button>
         <button class="hamburger" id="hamburger" aria-label="Ouvrir le menu" aria-expanded="false">
           <span></span><span></span><span></span>
         </button>
@@ -1327,10 +1327,10 @@
       <div class="footer-grid">
 
         <div class="footer-brand">
-          <a href="#" class="logo" aria-label="Logiplex — Retour en haut">
+          <a href="#" class="logo">
             <svg class="logo-icon" viewBox="0 0 32 32" fill="none" aria-hidden="true">
               <polygon points="16,2 29,9 29,23 16,30 3,23 3,9" fill="none" stroke="url(#footerLogoGrad)" stroke-width="2"/>
-              <text x="16" y="22" text-anchor="middle" font-family="Space Grotesk, sans-serif" font-weight="700" font-size="12" fill="url(#footerLogoGrad)">L</text>
+              <path d="M12 9h3v11h6v3H12z" fill="url(#footerLogoGrad)"/>
               <defs>
                 <linearGradient id="footerLogoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
                   <stop offset="0%" stop-color="#00E5FF"/>
@@ -1338,7 +1338,7 @@
                 </linearGradient>
               </defs>
             </svg>
-            <span>Logiplex</span>
+            <span>Logiplex</span><span class="sr-only"> — Retour en haut</span>
           </a>
           <p data-fr="Solutions internet et télécom clé en main pour immeubles multilogements au Québec."
              data-en="Turnkey internet and telecom solutions for multi-unit residential buildings in Quebec.">
@@ -1348,7 +1348,7 @@
         </div>
 
         <nav class="footer-col" aria-label="Solutions">
-          <h4 data-fr="Solutions" data-en="Solutions">Solutions</h4>
+          <h3 data-fr="Solutions" data-en="Solutions">Solutions</h3>
           <ul>
             <li><a href="#solutions" data-fr="WiFi Haute Vitesse" data-en="High-Speed WiFi">WiFi Haute Vitesse</a></li>
             <li><a href="#solutions" data-fr="Caméras de Sécurité 4K" data-en="4K Security Cameras">Caméras de Sécurité 4K</a></li>
@@ -1359,7 +1359,7 @@
         </nav>
 
         <nav class="footer-col" aria-label="Entreprise">
-          <h4 data-fr="Entreprise" data-en="Company">Entreprise</h4>
+          <h3 data-fr="Entreprise" data-en="Company">Entreprise</h3>
           <ul>
             <li><a href="#pourquoi" data-fr="Pourquoi Logiplex" data-en="Why Logiplex">Pourquoi Logiplex</a></li>
             <li><a href="#comment" data-fr="Comment ça marche" data-en="How it works">Comment ça marche</a></li>
@@ -1369,7 +1369,7 @@
         </nav>
 
         <div class="footer-col">
-          <h4 data-fr="Contact" data-en="Contact">Contact</h4>
+          <h3 data-fr="Contact" data-en="Contact">Contact</h3>
           <ul>
             <li><a href="mailto:info@logiplex.ca">info@logiplex.ca</a></li>
             <li><a href="tel:+15145550123">1 (514) 555-0123</a></li>
@@ -1397,6 +1397,6 @@
     <a href="#contact" class="btn-primary" data-fr="Obtenir une soumission gratuite" data-en="Get a free quote">Obtenir une soumission gratuite</a>
   </div>
 
-  <script src="js/main.min.js?v=15" defer></script>
+  <script src="js/main.min.js?v=16" defer></script>
 </body>
 </html>
