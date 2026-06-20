@@ -2,6 +2,19 @@
 
 ---
 
+## Cycle 6 — Hero desktop : layout deux colonnes sans overlap (2026-06-20)
+### Problème identifié
+La `.hero-dashboard-card` était en `position:absolute; right:...; top:50%` tandis que `.hero-content` était centré avec `margin-inline:auto; max-width:820px`. Sur les écrans 1200–1500px (laptops standard), la carte chevauchait de 100–140px le bord droit du bloc héro, cachant partiellement les stats. En parallèle, un bloc `<style>` inline avec `!important` dans le `<head>` conflit avec le CSS source.
+### Fix appliqué
+- **`style.css` / `style.min.css`** : Carte dashboard passée de `position:absolute` à `position:relative; flex-shrink:0; align-self:center` — elle s'intègre maintenant dans le flux flex du `#hero` côté droit
+- **`@media (min-width:1200px)`** : Ajout `#hero { gap: clamp(40,5vw,72px); padding-inline: clamp(48,6vw,96px) }` et `.hero-content { max-width:600px; margin-inline:0 }` pour une vraie mise en page deux colonnes
+- **`@keyframes cardFloat`** : Correction — suppression de `translateY(-50%)` devenu obsolète avec `position:relative`
+- **`index.html`** : Suppression du bloc `<style>` inline `!important` (hack superflu maintenant que le CSS est propre), version CSS → `v=8`
+### Résultat
+Hero desktop : texte centré dans sa colonne gauche (600px), carte dashboard à droite (268px), gap propre, zéro overlap sur 1200px+
+
+---
+
 ## Cycle 0 — Corrections WCAG & Performance (session précédente)
 - Suppression des rôles ARIA incorrects (`role="menubar"`, `role="menuitem"`, `role="menu"`, `role="navigation"` redondant)
 - Ajout des balises `<link rel="alternate" hreflang>` (fr, en, x-default) dans le `<head>`
