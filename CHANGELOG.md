@@ -2,6 +2,16 @@
 
 ---
 
+## Cycle 9 — Responsive : centrage grille marchés sur tablet (2026-06-20)
+### Problème identifié
+Sur tablet (601–1024px), la section `#marches` affichait 5 cartes en grille 3 colonnes : ligne 1 (3 cartes) et ligne 2 (2 cartes + cellule vide à droite). Layout asymétrique visible sur iPad / tablettes Android — la colonne 3 vide en bas donnait un aspect non-fini.
+### Fix appliqué
+Remplacement du `repeat(3,1fr)` à 1024px par un trick grille 6 colonnes (uniquement pour la plage 601–1024px) : chaque carte span 2 colonnes, et les cartes 4–5 sont positionnées sur les colonnes 2–4 et 4–6 → centrées avec 1 colonne vide de chaque côté. Layout parfaitement symétrique. Les breakpoints 600px (2 col) et 400px (1 col) ne sont pas affectés.
+### Résultat
+Sur iPad Pro (1024px) et tablettes en mode portrait (768px) : grille marchés équilibrée en 3+2 centré vs 3+2 décalé à gauche. Version CSS → v=10
+
+---
+
 ## Cycle 8 — Clarté du message hero : 5 services complets (2026-06-20)
 ### Problème identifié
 Le sous-titre du hero ne mentionnait que 3 des 5 services (WiFi, caméras, téléphonie IP) — omettant les **interphones intelligents** et l'**IPTV**, pourtant au cœur de l'offre Logiplex. Un prospect B2B qui scanne la page d'accueil ne voyait pas la gamme complète au premier coup d'oeil.
