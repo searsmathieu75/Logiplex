@@ -186,21 +186,32 @@ function initNavbar() {
   const pourquoi = document.getElementById('pourquoi');
   let ticking = false;
 
+  function smoothstep(t) { return t * t * (3 - 2 * t); }
+
   function update() {
     const scrollY = window.scrollY;
-    const navH = nav.offsetHeight;
 
-    // Fade in early (80px) so CSS transition has room to animate smoothly
-    nav.classList.toggle('scrolled', scrollY > 80);
+    // Continuous fade-in: 0 → max alpha over first 280px of scroll
+    const fadeIn = smoothstep(Math.min(Math.max(scrollY / 280, 0), 1));
+    let alpha = fadeIn * 0.66;
 
-    // Smooth fade-out when pourquoi (light section) reaches the navbar
-    if (pourquoi && scrollY > 80) {
+    // Smooth fade-out when navbar is over the pourquoi (light) section
+    if (pourquoi && alpha > 0.02) {
+      const navH = nav.offsetHeight;
       const { top, bottom } = pourquoi.getBoundingClientRect();
-      const inLight = top < navH && bottom > 0;
-      nav.classList.toggle('nav-fade', inLight);
-    } else {
-      nav.classList.remove('nav-fade');
+      if (bottom > 0 && top < navH) {
+        const zone = 72;
+        const dist = top - navH; // negative when inside section
+        const mult = Math.min(Math.max((dist + zone) / zone, 0), 1);
+        alpha *= mult;
+      }
     }
+
+    // Apply background directly — no class toggle, no CSS transition
+    nav.style.background = alpha > 0.005
+      ? `rgba(6,11,30,${alpha.toFixed(3)})`
+      : '';
+    nav.classList.toggle('scrolled', scrollY > 40);
 
     ticking = false;
   }
