@@ -135,7 +135,7 @@
     :root { --ff-head: 'Space Grotesk', system-ui, -apple-system, sans-serif; --ff-body: 'Inter', system-ui, -apple-system, sans-serif; }
   </style>
 
-  <link rel="stylesheet" href="css/style.min.css?v=5">
+  <link rel="stylesheet" href="css/style.min.css?v=6">
   <style>
     #hero { justify-content: center !important; }
     .hero-content { text-align: center !important; margin-inline: auto !important; }
@@ -815,17 +815,17 @@
           <div class="calc-left">
             <p class="calc-section-label" data-fr="Nombre de logements" data-en="Number of units">Nombre de logements</p>
             <input type="range" class="calc-slider" id="calcSlider"
-                   min="10" max="500" value="50" step="5"
+                   min="1" max="100" value="20" step="1"
                    aria-label="Nombre de logements"
-                   aria-valuemin="10" aria-valuemax="500" aria-valuenow="50">
+                   aria-valuemin="1" aria-valuemax="100" aria-valuenow="20">
             <div class="calc-units-display">
-              <span id="calcUnitsNum">50</span>
+              <span id="calcUnitsNum">20</span>
               <span class="calc-units-suffix" data-fr="logements" data-en="units">logements</span>
             </div>
             <div class="calc-scale" aria-hidden="true">
-              <span>10</span>
-              <span>250</span>
-              <span>500+</span>
+              <span>1</span>
+              <span>50</span>
+              <span>100</span>
             </div>
           </div>
           <!-- Résultats -->
@@ -1359,6 +1359,6 @@
     <a href="#contact" class="btn-primary" data-fr="Obtenir une soumission gratuite" data-en="Get a free quote">Obtenir une soumission gratuite</a>
   </div>
 
-  <script src="js/main.min.js?v=2" defer></script>
+  <script src="js/main.min.js?v=3" defer></script>
 </body>
 </html>

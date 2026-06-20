@@ -182,8 +182,36 @@ function lancerCanvas() {
 function initNavbar() {
   const nav = document.getElementById('navbar');
   if (!nav) return;
-  new IntersectionObserver(([e]) => nav.classList.toggle('scrolled', !e.isIntersecting), {threshold:0.1})
-    .observe(document.getElementById('hero') || document.body);
+
+  const pourquoi = document.getElementById('pourquoi');
+  let ticking = false;
+
+  function update() {
+    const scrollY = window.scrollY;
+    const navH = nav.offsetHeight;
+
+    // Fade in early (80px) so CSS transition has room to animate smoothly
+    nav.classList.toggle('scrolled', scrollY > 80);
+
+    // Smooth fade-out when pourquoi (light section) reaches the navbar
+    if (pourquoi && scrollY > 80) {
+      const { top, bottom } = pourquoi.getBoundingClientRect();
+      const inLight = top < navH && bottom > 0;
+      nav.classList.toggle('nav-fade', inLight);
+    } else {
+      nav.classList.remove('nav-fade');
+    }
+
+    ticking = false;
+  }
+
+  window.addEventListener('scroll', () => {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(update);
+  }, { passive: true });
+
+  update();
 }
 
 /* ══════════════════════════════════════════════════════════
@@ -585,7 +613,7 @@ function initCalculateur() {
     monthlyEl.textContent = fmt(monthly, lang);
     annualEl.textContent = fmtAnnual(annual, lang);
     slider.setAttribute('aria-valuenow', units);
-    const pct = ((units - 10) / (500 - 10)) * 100;
+    const pct = ((units - 1) / (100 - 1)) * 100;
     slider.style.setProperty('--pct', pct + '%');
   }
 
