@@ -2,6 +2,19 @@
 
 ---
 
+## Cycle 10 — CTA sur cartes services individuelles (2026-06-20)
+### Problème identifié
+Les 5 cartes services (WiFi, Caméras, Interphones, Téléphonie IP, IPTV) n'avaient aucun CTA. Seule la carte "Forfait Tout-en-Un" avait un bouton. Un prospect intéressé par un service spécifique n'avait aucune action directe — obligation de scroller jusqu'au contact.
+### Fix appliqué
+- Nouveau style `.card-link` : lien texte cyan avec arrow SVG (→), underline subtil, animation `gap` 6px→10px + `translateX(3px)` au hover
+- Ajout du `<a class="card-link" href="#contact">Demander une soumission →</a>` sur les 5 cartes individuelles (WiFi, Caméras, Interphones, Téléphonie IP, IPTV)
+- La carte "Forfait Tout-en-Un" garde son bouton `.card-cta` (gradient) pour la hiérarchie visuelle
+- Version CSS → v=11
+### Résultat
+Chaque section de service a maintenant un point d'entrée conversion direct. Différenciation visuelle maintenue : texte-lien pour services individuels, bouton gradient pour le forfait premium
+
+---
+
 ## Cycle 9 — Responsive : centrage grille marchés sur tablet (2026-06-20)
 ### Problème identifié
 Sur tablet (601–1024px), la section `#marches` affichait 5 cartes en grille 3 colonnes : ligne 1 (3 cartes) et ligne 2 (2 cartes + cellule vide à droite). Layout asymétrique visible sur iPad / tablettes Android — la colonne 3 vide en bas donnait un aspect non-fini.

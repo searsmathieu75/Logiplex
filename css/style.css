@@ -664,6 +664,22 @@ address { font-style: normal; }
 }
 .card-cta:hover { transform: translateY(-2px); box-shadow: 0 6px 24px rgba(0,229,255,0.3); }
 
+.card-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 20px;
+  font-size: 0.8375rem;
+  font-weight: 500;
+  color: var(--cyan);
+  border-bottom: 1px solid rgba(0, 229, 255, 0.3);
+  padding-bottom: 2px;
+  transition: gap var(--t-fast), border-color var(--t-fast), color var(--t-fast);
+}
+.card-link svg { width: 14px; height: 14px; transition: transform var(--t-fast); }
+.card-link:hover { gap: 10px; border-color: var(--cyan); }
+.card-link:hover svg { transform: translateX(3px); }
+
 /* ── SECTION POURQUOI — STATS BAND ───────────────────────── */
 .stats-band {
   display: grid;
