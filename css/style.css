@@ -1636,6 +1636,81 @@ a.contact-detail:hover { color: var(--cyan); }
   .hero-orb { display: none; }
 }
 
+/* ── CURSEUR PERSONNALISÉ LUMINEUX ────────────────────────── */
+.cursor-dot {
+  position: fixed;
+  width: 8px;
+  height: 8px;
+  background: var(--cyan);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 10000;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 8px var(--cyan), 0 0 18px rgba(0,229,255,0.45);
+  transition: width 0.18s ease, height 0.18s ease, background 0.18s ease, box-shadow 0.18s ease;
+  will-change: left, top;
+}
+.cursor-ring {
+  position: fixed;
+  width: 36px;
+  height: 36px;
+  border: 1.5px solid rgba(0,229,255,0.4);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: width 0.28s cubic-bezier(0.34,1.56,0.64,1), height 0.28s cubic-bezier(0.34,1.56,0.64,1), border-color 0.2s, opacity 0.2s;
+  will-change: left, top;
+}
+.cursor-dot.cursor-hover { width: 12px; height: 12px; background: #fff; box-shadow: 0 0 10px var(--cyan); }
+.cursor-ring.cursor-hover { width: 52px; height: 52px; border-color: rgba(0,229,255,0.7); }
+.cursor-ring.cursor-click { width: 26px; height: 26px; border-color: var(--cyan); opacity: 0.6; transition-duration: 0.05s; }
+body.has-custom-cursor,
+body.has-custom-cursor a,
+body.has-custom-cursor button,
+body.has-custom-cursor input,
+body.has-custom-cursor select,
+body.has-custom-cursor textarea { cursor: none !important; }
+
+/* ── BARRE DE PROGRESSION SCROLL ─────────────────────────── */
+#scrollProgress {
+  position: fixed;
+  top: 0; left: 0;
+  height: 2px;
+  width: 0%;
+  background: linear-gradient(90deg, var(--cyan), var(--blue));
+  z-index: 1001;
+  pointer-events: none;
+  box-shadow: 0 0 8px rgba(0,229,255,0.6);
+  transition: width 0.1s linear;
+}
+
+/* ── SPOTLIGHT SOURIS (sections sombres) ──────────────────── */
+.mouse-spotlight {
+  position: absolute;
+  width: 380px;
+  height: 380px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(0,229,255,0.055), transparent 70%);
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  z-index: 1;
+}
+
+/* ── TYPEWRITER ───────────────────────────────────────────── */
+.typewriter-cursor::after {
+  content: '|';
+  color: var(--cyan);
+  font-weight: 300;
+  animation: typewriterBlink 0.75s step-end infinite;
+}
+@keyframes typewriterBlink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+
 /* ── HERO DASHBOARD CARD (desktop only) ─────────────────── */
 .hero-dashboard-card {
   display: none;

@@ -597,6 +597,150 @@ function initCalculateur() {
 /* ══════════════════════════════════════════════════════════
    INIT
    ══════════════════════════════════════════════════════════ */
+/* ══════════════════════════════════════════════════════════
+   CURSEUR PERSONNALISÉ LUMINEUX
+   ══════════════════════════════════════════════════════════ */
+function initCustomCursor() {
+  if (window.matchMedia('(hover: none)').matches) return;
+  const dot = document.createElement('div');
+  dot.className = 'cursor-dot';
+  const ring = document.createElement('div');
+  ring.className = 'cursor-ring';
+  document.body.appendChild(dot);
+  document.body.appendChild(ring);
+  document.body.classList.add('has-custom-cursor');
+  let mx = -100, my = -100, rx = -100, ry = -100;
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX; my = e.clientY;
+    dot.style.left = mx + 'px';
+    dot.style.top = my + 'px';
+  });
+  (function loop() {
+    rx += (mx - rx) * 0.12;
+    ry += (my - ry) * 0.12;
+    ring.style.left = rx + 'px';
+    ring.style.top = ry + 'px';
+    requestAnimationFrame(loop);
+  })();
+  const setHover = on => {
+    dot.classList.toggle('cursor-hover', on);
+    ring.classList.toggle('cursor-hover', on);
+  };
+  document.querySelectorAll('a, button, .sol-card, .step-card, .marche-card, input, select, textarea')
+    .forEach(el => { el.addEventListener('mouseenter', () => setHover(true)); el.addEventListener('mouseleave', () => setHover(false)); });
+  document.addEventListener('mousedown', () => ring.classList.add('cursor-click'));
+  document.addEventListener('mouseup', () => ring.classList.remove('cursor-click'));
+}
+
+/* ══════════════════════════════════════════════════════════
+   BARRE DE PROGRESSION SCROLL
+   ══════════════════════════════════════════════════════════ */
+function initScrollProgress() {
+  const bar = document.createElement('div');
+  bar.id = 'scrollProgress';
+  document.body.appendChild(bar);
+  window.addEventListener('scroll', () => {
+    const total = document.documentElement.scrollHeight - window.innerHeight;
+    if (total > 0) bar.style.width = (window.scrollY / total * 100) + '%';
+  }, { passive: true });
+}
+
+/* ══════════════════════════════════════════════════════════
+   SPOTLIGHT SOURIS — SECTIONS SOMBRES
+   ══════════════════════════════════════════════════════════ */
+function initMouseSpotlight() {
+  if (window.matchMedia('(hover: none)').matches) return;
+  document.querySelectorAll('.section-dark, .section-testimonials, .section-contact, .cta-banner, .section-calculateur').forEach(section => {
+    const s = document.createElement('div');
+    s.className = 'mouse-spotlight';
+    section.appendChild(s);
+    section.addEventListener('mousemove', e => {
+      const r = section.getBoundingClientRect();
+      s.style.left = (e.clientX - r.left) + 'px';
+      s.style.top  = (e.clientY - r.top)  + 'px';
+      s.style.opacity = '1';
+    });
+    section.addEventListener('mouseleave', () => { s.style.opacity = '0'; });
+  });
+}
+
+/* ══════════════════════════════════════════════════════════
+   BOUTONS MAGNÉTIQUES
+   ══════════════════════════════════════════════════════════ */
+function initMagneticButtons() {
+  if (window.matchMedia('(hover: none)').matches) return;
+  document.querySelectorAll('.btn-primary, .nav-cta, .card-cta').forEach(btn => {
+    btn.addEventListener('mouseenter', () => {
+      btn.style.transition = 'transform 0.1s ease, box-shadow var(--t-fast), filter var(--t-fast)';
+    });
+    btn.addEventListener('mousemove', e => {
+      const r = btn.getBoundingClientRect();
+      const x = (e.clientX - r.left - r.width  / 2) * 0.28;
+      const y = (e.clientY - r.top  - r.height / 2) * 0.28;
+      btn.style.transform = `translate(${x}px, ${y}px) translateY(-2px)`;
+    });
+    btn.addEventListener('mouseleave', () => {
+      btn.style.transition = 'transform 0.55s cubic-bezier(0.34,1.56,0.64,1), box-shadow var(--t-fast), filter var(--t-fast)';
+      btn.style.transform = '';
+    });
+  });
+}
+
+/* ══════════════════════════════════════════════════════════
+   COMPTEUR ANIMÉ — STATISTIQUES HERO
+   ══════════════════════════════════════════════════════════ */
+function initHeroStatsCounter() {
+  const stats = document.querySelectorAll('.hero-stat-num');
+  if (!stats.length) return;
+  function fmt(n) {
+    return n >= 1000 ? n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ') : n.toString();
+  }
+  const obs = new IntersectionObserver(es => {
+    es.forEach(e => {
+      if (!e.isIntersecting) return;
+      const el = e.target;
+      const raw = el.textContent.replace(/[ \s]/g, '');
+      const num = parseInt(raw);
+      const suffix = raw.replace(/[0-9]/g, '');
+      if (isNaN(num)) return;
+      const dur = 1800, d0 = performance.now();
+      (function step(now) {
+        const t = Math.min((now - d0) / dur, 1);
+        el.textContent = fmt(Math.round((1 - Math.pow(1 - t, 3)) * num)) + suffix;
+        if (t < 1) requestAnimationFrame(step);
+      })(d0);
+      obs.unobserve(el);
+    });
+  }, { threshold: 0.5 });
+  stats.forEach(s => obs.observe(s));
+}
+
+/* ══════════════════════════════════════════════════════════
+   TYPEWRITER — TEXTE GRADIENT DU HERO
+   ══════════════════════════════════════════════════════════ */
+function initTypewriter() {
+  const spans = document.querySelectorAll('.hero-title .gradient-text');
+  if (!spans.length) return;
+  const texts = Array.from(spans).map(s => s.textContent);
+  spans.forEach(s => { s.textContent = ''; });
+  let delay = 1100;
+  spans.forEach((span, i) => {
+    const text = texts[i];
+    setTimeout(() => {
+      span.classList.add('typewriter-cursor');
+      let j = 0;
+      const iv = setInterval(() => {
+        span.textContent = text.slice(0, ++j);
+        if (j >= text.length) {
+          clearInterval(iv);
+          span.classList.remove('typewriter-cursor');
+        }
+      }, 52);
+    }, delay);
+    delay += text.length * 52 + 480;
+  });
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   lancerCanvas();
   initNavbar();
@@ -615,4 +759,10 @@ document.addEventListener('DOMContentLoaded', () => {
   initCardTilt();
   initScrollParallax();
   initDashboardTicker();
+  initCustomCursor();
+  initScrollProgress();
+  initMouseSpotlight();
+  initMagneticButtons();
+  initHeroStatsCounter();
+  initTypewriter();
 });
