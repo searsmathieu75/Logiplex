@@ -415,9 +415,40 @@ function initFormulaire() {
     let ok=true;
     form.querySelectorAll('input[required],select[required]').forEach(inp=>{valider(inp); if(!inp.checkValidity()) ok=false;});
     if(!ok) return;
+
     const btn=form.querySelector('button[type="submit"]');
+    const btnSpan=btn.querySelector('span[data-fr]');
+    const origFr=btnSpan?.getAttribute('data-fr')||'Envoyer';
+    const origEn=btnSpan?.getAttribute('data-en')||'Send';
+    const lang=document.documentElement.lang||'fr';
+    const errDiv=document.getElementById('formError');
+
     btn.disabled=true; btn.style.opacity='0.65';
-    setTimeout(()=>{ form.style.display='none'; succes.hidden=false; },600);
+    if(errDiv) errDiv.hidden=true;
+    if(btnSpan){
+      btnSpan.setAttribute('data-fr','Envoi en cours…');
+      btnSpan.setAttribute('data-en','Sending…');
+      btnSpan.textContent=lang==='en'?'Sending…':'Envoi en cours…';
+    }
+
+    fetch('/',{
+      method:'POST',
+      headers:{'Content-Type':'application/x-www-form-urlencoded'},
+      body:new URLSearchParams(new FormData(form)).toString()
+    })
+    .then(res=>{
+      if(!res.ok) throw new Error('HTTP '+res.status);
+      form.style.display='none'; succes.hidden=false;
+    })
+    .catch(()=>{
+      btn.disabled=false; btn.style.opacity='';
+      if(btnSpan){
+        btnSpan.setAttribute('data-fr',origFr);
+        btnSpan.setAttribute('data-en',origEn);
+        btnSpan.textContent=lang==='en'?origEn:origFr;
+      }
+      if(errDiv) errDiv.hidden=false;
+    });
   });
 }
 
