@@ -135,7 +135,20 @@
     :root { --ff-head: 'Space Grotesk', system-ui, -apple-system, sans-serif; --ff-body: 'Inter', system-ui, -apple-system, sans-serif; }
   </style>
 
-  <link rel="stylesheet" href="css/style.min.css?v=4">
+  <link rel="stylesheet" href="css/style.min.css?v=5">
+  <style>
+    #hero { justify-content: center !important; }
+    .hero-content { text-align: center !important; margin-inline: auto !important; }
+    .hero-title { text-align: center !important; }
+    .hero-sub { text-align: center !important; margin-inline: auto !important; }
+    .hero-actions { justify-content: center !important; }
+    .hero-stats { justify-content: center !important; }
+    @media (min-width: 1200px) {
+      .hero-content { text-align: center !important; margin-inline: auto !important; padding-left: clamp(20px,5vw,48px) !important; }
+      .hero-title { text-align: center !important; }
+      .hero-sub { text-align: center !important; margin-inline: auto !important; }
+    }
+  </style>
 </head>
 <body>
   <!-- Lien d'accessibilité : aller au contenu principal -->
