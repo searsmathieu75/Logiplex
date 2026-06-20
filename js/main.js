@@ -764,5 +764,4 @@ document.addEventListener('DOMContentLoaded', () => {
   initMouseSpotlight();
   initMagneticButtons();
   initHeroStatsCounter();
-  initTypewriter();
 });
