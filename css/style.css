@@ -1174,6 +1174,23 @@ a.contact-detail:hover { color: var(--cyan); }
 }
 .form-success svg { width: 22px; height: 22px; flex-shrink: 0; }
 
+/* Spinner dans le bouton de soumission */
+@keyframes btnSpin {
+  to { transform: rotate(360deg); }
+}
+.btn-spinner {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255,255,255,0.3);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: btnSpin 0.7s linear infinite;
+  flex-shrink: 0;
+}
+.btn-primary.loading { pointer-events: none; opacity: 0.72; }
+.btn-primary.loading svg { display: none; }
+
 .form-error {
   display: flex;
   align-items: center;
@@ -1689,28 +1706,28 @@ a.contact-detail:hover { color: var(--cyan); }
 /* ── CURSEUR PERSONNALISÉ LUMINEUX ────────────────────────── */
 .cursor-dot {
   position: fixed;
+  left: 0; top: 0;
   width: 8px;
   height: 8px;
   background: var(--cyan);
   border-radius: 50%;
   pointer-events: none;
   z-index: 10000;
-  transform: translate(-50%, -50%);
   box-shadow: 0 0 8px var(--cyan), 0 0 18px rgba(0,229,255,0.45);
   transition: width 0.18s ease, height 0.18s ease, background 0.18s ease, box-shadow 0.18s ease;
-  will-change: left, top;
+  will-change: transform;
 }
 .cursor-ring {
   position: fixed;
+  left: 0; top: 0;
   width: 36px;
   height: 36px;
   border: 1.5px solid rgba(0,229,255,0.4);
   border-radius: 50%;
   pointer-events: none;
   z-index: 9999;
-  transform: translate(-50%, -50%);
   transition: width 0.28s cubic-bezier(0.34,1.56,0.64,1), height 0.28s cubic-bezier(0.34,1.56,0.64,1), border-color 0.2s, opacity 0.2s;
-  will-change: left, top;
+  will-change: transform;
 }
 .cursor-dot.cursor-hover { width: 12px; height: 12px; background: #fff; box-shadow: 0 0 10px var(--cyan); }
 .cursor-ring.cursor-hover { width: 52px; height: 52px; border-color: rgba(0,229,255,0.7); }
@@ -1721,6 +1738,17 @@ body.has-custom-cursor button,
 body.has-custom-cursor input,
 body.has-custom-cursor select,
 body.has-custom-cursor textarea { cursor: none !important; }
+
+/* ── VISUALLY HIDDEN (accessible) ────────────────────────── */
+.sr-only {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border: 0;
+}
 
 /* ── BARRE DE PROGRESSION SCROLL ─────────────────────────── */
 #scrollProgress {
@@ -1738,15 +1766,16 @@ body.has-custom-cursor textarea { cursor: none !important; }
 /* ── SPOTLIGHT SOURIS (sections sombres) ──────────────────── */
 .mouse-spotlight {
   position: absolute;
+  left: 0; top: 0;
   width: 380px;
   height: 380px;
   border-radius: 50%;
   background: radial-gradient(circle, rgba(0,229,255,0.055), transparent 70%);
-  transform: translate(-50%, -50%);
   pointer-events: none;
   opacity: 0;
   transition: opacity 0.4s ease;
   z-index: 1;
+  will-change: transform;
 }
 
 /* ── TYPEWRITER ───────────────────────────────────────────── */

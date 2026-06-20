@@ -1,0 +1,26 @@
+{
+  "name": "Logiplex",
+  "short_name": "Logiplex",
+  "description": "Solutions WiFi & télécom clé en main pour immeubles multilogements au Québec",
+  "lang": "fr-CA",
+  "start_url": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#0A0E27",
+  "theme_color": "#0A0E27",
+  "categories": ["business"],
+  "icons": [
+    {
+      "src": "favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "maskable"
+    }
+  ]
+}

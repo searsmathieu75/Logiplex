@@ -40,6 +40,8 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="Logiplex">
+  <meta name="format-detection" content="telephone=no">
+  <link rel="manifest" href="/manifest.json">
 
   <!-- Schema.org JSON-LD — LocalBusiness + FAQPage + Services -->
   <script type="application/ld+json">
@@ -991,7 +993,7 @@
       </header>
 
       <div class="carousel-wrapper reveal" role="region" aria-label="Témoignages clients" tabindex="0">
-        <div class="carousel-track" id="carouselTrack" aria-live="polite">
+        <div class="carousel-track" id="carouselTrack">
 
           <blockquote class="testi-card" aria-label="Témoignage de Michel Roy">
             <div class="stars" aria-label="5 étoiles sur 5">★★★★★</div>
@@ -1095,11 +1097,11 @@
       <div class="faq-list reveal" role="list">
 
         <div class="faq-item" role="listitem">
-          <button class="faq-q" aria-expanded="false">
+          <button class="faq-q" id="faq-q-1" aria-expanded="false" aria-controls="faq-a-1">
             <span data-fr="Quel est le nombre minimum de logements requis ?" data-en="What is the minimum number of units required?">Quel est le nombre minimum de logements requis ?</span>
             <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
           </button>
-          <div class="faq-a">
+          <div class="faq-a" id="faq-a-1" role="region" aria-labelledby="faq-q-1">
             <p data-fr="Nos solutions sont conçues pour les immeubles de 10 logements et plus. Les économies d'échelle augmentent avec la taille — nous travaillons avec des immeubles de 10 à 500+ unités. Pour les projets de construction neuve, nous intervenons dès la phase de planification."
                data-en="Our solutions are designed for buildings with 10 or more units. Economies of scale increase with size — we work with buildings from 10 to 500+ units. For new construction projects, we get involved as early as the planning phase.">
               Nos solutions sont conçues pour les immeubles de 10 logements et plus. Les économies d'échelle augmentent avec la taille — nous travaillons avec des immeubles de 10 à 500+ unités. Pour les projets de construction neuve, nous intervenons dès la phase de planification.
@@ -1108,11 +1110,11 @@
         </div>
 
         <div class="faq-item" role="listitem">
-          <button class="faq-q" aria-expanded="false">
+          <button class="faq-q" id="faq-q-2" aria-expanded="false" aria-controls="faq-a-2">
             <span data-fr="L'installation perturbe-t-elle mes locataires ?" data-en="Does the installation disturb my tenants?">L'installation perturbe-t-elle mes locataires ?</span>
             <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
           </button>
-          <div class="faq-a">
+          <div class="faq-a" id="faq-a-2" role="region" aria-labelledby="faq-q-2">
             <p data-fr="Pratiquement non. Nos techniciens travaillent principalement dans les espaces communs et le local technique. En règle générale, les locataires ne ressentent aucune coupure de service et n'ont pas à donner accès à leur logement pour l'installation de base."
                data-en="Practically not. Our technicians work primarily in common areas and the technical room. As a rule, tenants experience no service interruption and do not need to provide access to their unit for the basic installation.">
               Pratiquement non. Nos techniciens travaillent principalement dans les espaces communs et le local technique. En règle générale, les locataires ne ressentent aucune coupure de service et n'ont pas à donner accès à leur logement pour l'installation de base.
@@ -1121,11 +1123,11 @@
         </div>
 
         <div class="faq-item" role="listitem">
-          <button class="faq-q" aria-expanded="false">
+          <button class="faq-q" id="faq-q-3" aria-expanded="false" aria-controls="faq-a-3">
             <span data-fr="Qui gère le support technique pour mes locataires ?" data-en="Who manages technical support for my tenants?">Qui gère le support technique pour mes locataires ?</span>
             <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
           </button>
-          <div class="faq-a">
+          <div class="faq-a" id="faq-a-3" role="region" aria-labelledby="faq-q-3">
             <p data-fr="Logiplex gère tout le support directement avec vos locataires — 24h/24, 7j/7, par téléphone, chat et courriel. Notre équipe est entièrement francophone et basée au Québec. Vous n'avez jamais à intervenir pour des questions techniques."
                data-en="Logiplex handles all support directly with your tenants — 24/7, by phone, chat and email. Our team is entirely French-speaking and based in Quebec. You never have to intervene for technical issues.">
               Logiplex gère tout le support directement avec vos locataires — 24h/24, 7j/7, par téléphone, chat et courriel. Notre équipe est entièrement francophone et basée au Québec. Vous n'avez jamais à intervenir pour des questions techniques.
@@ -1134,11 +1136,11 @@
         </div>
 
         <div class="faq-item" role="listitem">
-          <button class="faq-q" aria-expanded="false">
+          <button class="faq-q" id="faq-q-4" aria-expanded="false" aria-controls="faq-a-4">
             <span data-fr="Quelle est la durée du contrat ?" data-en="What is the contract duration?">Quelle est la durée du contrat ?</span>
             <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
           </button>
-          <div class="faq-a">
+          <div class="faq-a" id="faq-a-4" role="region" aria-labelledby="faq-q-4">
             <p data-fr="Nous proposons des ententes de 3 ou 5 ans avec des tarifs préférentiels. Un contrat de plus longue durée vous garantit la stabilité des prix et un meilleur taux mensuel. Des conditions adaptées aux projets de construction (pré-bail) sont également disponibles."
                data-en="We offer 3 or 5-year agreements with preferential rates. A longer contract guarantees price stability and a better monthly rate. Terms adapted to construction projects (pre-lease) are also available.">
               Nous proposons des ententes de 3 ou 5 ans avec des tarifs préférentiels. Un contrat de plus longue durée vous garantit la stabilité des prix et un meilleur taux mensuel. Des conditions adaptées aux projets de construction (pré-bail) sont également disponibles.
@@ -1147,11 +1149,11 @@
         </div>
 
         <div class="faq-item" role="listitem">
-          <button class="faq-q" aria-expanded="false">
+          <button class="faq-q" id="faq-q-5" aria-expanded="false" aria-controls="faq-a-5">
             <span data-fr="Quelle vitesse internet est offerte par logement ?" data-en="What internet speed is offered per unit?">Quelle vitesse internet est offerte par logement ?</span>
             <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
           </button>
-          <div class="faq-a">
+          <div class="faq-a" id="faq-a-5" role="region" aria-labelledby="faq-q-5">
             <p data-fr="Nos forfaits offrent de 100 Mbps à 1 Gbps symétrique par logement selon le plan choisi. La technologie Wi-Fi 6 garantit une connexion stable même aux heures de pointe, avec des points d'accès dédiés par palier pour éviter la congestion."
                data-en="Our plans offer from 100 Mbps to 1 Gbps symmetrical per unit depending on the chosen plan. Wi-Fi 6 technology guarantees a stable connection even during peak hours, with dedicated access points per floor to avoid congestion.">
               Nos forfaits offrent de 100 Mbps à 1 Gbps symétrique par logement selon le plan choisi. La technologie Wi-Fi 6 garantit une connexion stable même aux heures de pointe, avec des points d'accès dédiés par palier pour éviter la congestion.
@@ -1160,11 +1162,11 @@
         </div>
 
         <div class="faq-item" role="listitem">
-          <button class="faq-q" aria-expanded="false">
+          <button class="faq-q" id="faq-q-6" aria-expanded="false" aria-controls="faq-a-6">
             <span data-fr="Que se passe-t-il lors du départ d'un locataire ?" data-en="What happens when a tenant moves out?">Que se passe-t-il lors du départ d'un locataire ?</span>
             <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
           </button>
-          <div class="faq-a">
+          <div class="faq-a" id="faq-a-6" role="region" aria-labelledby="faq-q-6">
             <p data-fr="Le service est lié au logement, pas au locataire. Quand un locataire quitte, le suivant bénéficie automatiquement du service sans aucune démarche de votre part. Votre revenu mensuel continue sans interruption."
                data-en="The service is tied to the unit, not the tenant. When a tenant leaves, the next one automatically benefits from the service without any steps on your part. Your monthly income continues without interruption.">
               Le service est lié au logement, pas au locataire. Quand un locataire quitte, le suivant bénéficie automatiquement du service sans aucune démarche de votre part. Votre revenu mensuel continue sans interruption.
@@ -1173,11 +1175,11 @@
         </div>
 
         <div class="faq-item" role="listitem">
-          <button class="faq-q" aria-expanded="false">
+          <button class="faq-q" id="faq-q-7" aria-expanded="false" aria-controls="faq-a-7">
             <span data-fr="Offrez-vous des solutions pour les résidences pour aînés ?" data-en="Do you offer solutions for seniors residences?">Offrez-vous des solutions pour les résidences pour aînés ?</span>
             <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
           </button>
-          <div class="faq-a">
+          <div class="faq-a" id="faq-a-7" role="region" aria-labelledby="faq-q-7">
             <p data-fr="Absolument. Les résidences pour aînés constituent l'un de nos marchés principaux. Nous proposons des forfaits spéciaux avec interfaces simplifiées, télévision IPTV avec chaînes francophones, interphones pour la sécurité et un support patient et dédié aux résidents aînés."
                data-en="Absolutely. Seniors residences are one of our main markets. We offer special packages with simplified interfaces, IPTV television with French-language channels, security intercoms and patient, dedicated support for senior residents.">
               Absolument. Les résidences pour aînés constituent l'un de nos marchés principaux. Nous proposons des forfaits spéciaux avec interfaces simplifiées, télévision IPTV avec chaînes francophones, interphones pour la sécurité et un support patient et dédié aux résidents aînés.
@@ -1186,11 +1188,11 @@
         </div>
 
         <div class="faq-item" role="listitem">
-          <button class="faq-q" aria-expanded="false">
+          <button class="faq-q" id="faq-q-8" aria-expanded="false" aria-controls="faq-a-8">
             <span data-fr="Comment fonctionne la facturation ?" data-en="How does billing work?">Comment fonctionne la facturation ?</span>
             <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
           </button>
-          <div class="faq-a">
+          <div class="faq-a" id="faq-a-8" role="region" aria-labelledby="faq-q-8">
             <p data-fr="Simple : une seule facture mensuelle adressée au propriétaire pour l'ensemble de l'immeuble. Vous répercutez ensuite le coût sur vos locataires via le loyer, avec votre marge bénéficiaire. Aucune facture individuelle par locataire à gérer."
                data-en="Simple: a single monthly invoice addressed to the owner for the entire building. You then pass on the cost to your tenants through the rent, with your profit margin. No individual invoices per tenant to manage.">
               Simple : une seule facture mensuelle adressée au propriétaire pour l'ensemble de l'immeuble. Vous répercutez ensuite le coût sur vos locataires via le loyer, avec votre marge bénéficiaire. Aucune facture individuelle par locataire à gérer.
@@ -1277,7 +1279,7 @@
               </div>
               <div class="form-group">
                 <label for="units" data-fr="Nombre de logements *" data-en="Number of units *">Nombre de logements *</label>
-                <select id="units" name="units" required>
+                <select id="units" name="units" required autocomplete="off">
                   <option value="" data-fr="Sélectionner..." data-en="Select...">Sélectionner...</option>
                   <option value="10-24" data-fr="10 à 24 logements" data-en="10 to 24 units">10 à 24 logements</option>
                   <option value="25-49" data-fr="25 à 49 logements" data-en="25 to 49 units">25 à 49 logements</option>
