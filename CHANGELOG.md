@@ -2,6 +2,18 @@
 
 ---
 
+## Cycle 11 — Calculateur : correction des valeurs initiales (2026-06-20)
+### Problème identifié
+Le slider démarrait à `value="20"` (20 logements) mais les valeurs affichées dans le HTML étaient `4 250 $/mois` et `51 000 $/an` — correspondant à 50 unités (l'ancienne valeur par défaut avant le changement de slider 50→20). Flash de données incorrectes avant que le JS se charge. De plus, le `--pct` CSS fallback était de 8% au lieu de 19.19% (valeur correcte pour 20/100 sur la formule).
+### Fix appliqué
+- `<span id="calcMonthly">` : `4 250 $/mois` → `1 700 $/mois` (20 × 85 = 1 700)
+- `<span id="calcAnnual">` : `51 000 $/an` → `20 400 $/an` (1 700 × 12 = 20 400)
+- Slider : ajout `style="--pct:19.19%"` pour que le track fill soit correct dès le rendu initial
+### Résultat
+Premier rendu du calculateur cohérent avec la position du slider, même sans JS. Pas de flash de données erronées visible par le prospect.
+
+---
+
 ## Cycle 10 — CTA sur cartes services individuelles (2026-06-20)
 ### Problème identifié
 Les 5 cartes services (WiFi, Caméras, Interphones, Téléphonie IP, IPTV) n'avaient aucun CTA. Seule la carte "Forfait Tout-en-Un" avait un bouton. Un prospect intéressé par un service spécifique n'avait aucune action directe — obligation de scroller jusqu'au contact.
