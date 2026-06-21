@@ -1191,20 +1191,6 @@ a.contact-detail:hover { color: var(--cyan); }
 .btn-primary.loading { pointer-events: none; opacity: 0.72; }
 .btn-primary.loading svg { display: none; }
 
-.form-error {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 16px 20px;
-  background: rgba(239, 68, 68, 0.08);
-  border: 1px solid rgba(239, 68, 68, 0.3);
-  border-radius: var(--radius-sm);
-  color: #f87171;
-  font-size: 0.9rem;
-  font-weight: 500;
-  margin-bottom: 12px;
-}
-.form-error svg { width: 22px; height: 22px; flex-shrink: 0; }
 
 /* ── FOOTER ───────────────────────────────────────────────── */
 #footer {

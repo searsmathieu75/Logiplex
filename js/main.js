@@ -436,14 +436,11 @@ function initFormulaire() {
     const origFr=btnSpan?.getAttribute('data-fr')||'Envoyer';
     const origEn=btnSpan?.getAttribute('data-en')||'Send';
     const lang=document.documentElement.lang||'fr';
-    const errDiv=document.getElementById('formError');
-
     btn.disabled=true;
     btn.classList.add('loading');
     const spinner=document.createElement('span');
     spinner.className='btn-spinner';
     btn.insertBefore(spinner, btn.firstChild);
-    if(errDiv) errDiv.hidden=true;
     if(btnSpan){
       btnSpan.setAttribute('data-fr','Envoi en cours…');
       btnSpan.setAttribute('data-en','Sending…');
@@ -468,7 +465,6 @@ function initFormulaire() {
         btnSpan.setAttribute('data-en',origEn);
         btnSpan.textContent=lang==='en'?origEn:origFr;
       }
-      if(errDiv) errDiv.hidden=false;
     });
   });
 }
