@@ -43,22 +43,25 @@ class NoeudReseau {
   }
 
   draw(ctx) {
-    const op  = this.opaciteBase + Math.sin(this.phase) * (this.estHub ? 0.08 : 0.15);
+    const op = this.opaciteBase + Math.sin(this.phase) * (this.estHub ? 0.08 : 0.15);
     const [r,g,b] = this.teinte;
-    const rd  = this.rayon;
+    const rd = this.rayon;
+    const x = this.x|0, y = this.y|0;
     if (this.estHub) {
-      ctx.beginPath(); ctx.arc(this.x, this.y, rd*5, 0, Math.PI*2);
-      ctx.fillStyle = `rgba(${r},${g},${b},${op*0.07})`; ctx.fill();
-      ctx.beginPath(); ctx.arc(this.x, this.y, rd*2.5, 0, Math.PI*2);
-      ctx.fillStyle = `rgba(${r},${g},${b},${op*0.13})`; ctx.fill();
+      ctx.beginPath(); ctx.arc(x, y, rd*5, 0, Math.PI*2);
+      ctx.fillStyle = `rgba(${r},${g},${b},${(op*0.07).toFixed(3)})`; ctx.fill();
+      ctx.beginPath(); ctx.arc(x, y, rd*2.5, 0, Math.PI*2);
+      ctx.fillStyle = `rgba(${r},${g},${b},${(op*0.13).toFixed(3)})`; ctx.fill();
+      ctx.beginPath(); ctx.arc(x, y, rd, 0, Math.PI*2);
+      ctx.shadowBlur = 8; ctx.shadowColor = `rgb(${r},${g},${b})`;
+      ctx.fillStyle = `rgba(${r},${g},${b},${op.toFixed(3)})`; ctx.fill();
+      ctx.shadowBlur = 0;
+    } else {
+      ctx.beginPath(); ctx.arc(x, y, rd*3, 0, Math.PI*2);
+      ctx.fillStyle = `rgba(${r},${g},${b},${(op*0.1).toFixed(3)})`; ctx.fill();
+      ctx.beginPath(); ctx.arc(x, y, rd, 0, Math.PI*2);
+      ctx.fillStyle = `rgba(${r},${g},${b},${op.toFixed(3)})`; ctx.fill();
     }
-    ctx.beginPath(); ctx.arc(this.x, this.y, rd*3.5, 0, Math.PI*2);
-    ctx.fillStyle = `rgba(${r},${g},${b},${op*(this.estHub?0.18:0.1)})`; ctx.fill();
-    ctx.beginPath(); ctx.arc(this.x, this.y, rd, 0, Math.PI*2);
-    ctx.shadowBlur = this.estHub ? 16 : 10;
-    ctx.shadowColor = `rgb(${r},${g},${b})`;
-    ctx.fillStyle   = `rgba(${r},${g},${b},${op})`; ctx.fill();
-    ctx.shadowBlur  = 0;
   }
 }
 
@@ -103,13 +106,17 @@ class OndeHub {
 function lancerCanvas() {
   const canvas = document.getElementById('networkCanvas');
   if (!canvas) return;
-  const ctx = canvas.getContext('2d');
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
-  const NB  = window.innerWidth < 600 ? 36 : 72;
-  const DM  = window.innerWidth < 600 ? 118 : 170;
-  const MAX_PKT = 10;
+  const ctx = canvas.getContext('2d', { alpha: true });
 
-  let noeuds=[], paquets=[], ondes=[], animId, actif=true, lastTime=0;
+  const NB     = window.innerWidth < 600 ? 24 : 58;
+  const DM     = window.innerWidth < 600 ? 96 : 150;
+  const DM2    = DM * DM;
+  const MAX_PKT = 8;
+  const FPS    = 33; /* ~30fps cap */
+
+  let noeuds=[], paquets=[], ondes=[], animId=null, actif=true, lastTime=0;
 
   function init() {
     canvas.width  = window.innerWidth;
@@ -118,45 +125,42 @@ function lancerCanvas() {
     paquets = []; ondes = [];
   }
 
-  function ligne(a, b, dist) {
-    const op = (1 - dist/DM) * 0.3;
-    const [r1,g1,b1]=a.teinte, [r2,g2,b2]=b.teinte;
-    const g = ctx.createLinearGradient(a.x,a.y,b.x,b.y);
-    g.addColorStop(0, `rgba(${r1},${g1},${b1},${op})`);
-    g.addColorStop(1, `rgba(${r2},${g2},${b2},${op})`);
-    ctx.beginPath(); ctx.strokeStyle=g;
-    ctx.lineWidth = (a.estHub||b.estHub) ? 0.9 : 0.6;
-    ctx.moveTo(a.x,a.y); ctx.lineTo(b.x,b.y); ctx.stroke();
-  }
-
   function frame(now) {
     animId = requestAnimationFrame(frame);
-    if (!actif || now - lastTime < 16) return;
+    if (!actif || now - lastTime < FPS) return;
     lastTime = now;
-    ctx.clearRect(0,0,canvas.width,canvas.height);
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     const cnx = [];
-    for (let i=0;i<noeuds.length;i++) {
-      for (let j=i+1;j<noeuds.length;j++) {
-        const dx=noeuds[i].x-noeuds[j].x, dy=noeuds[i].y-noeuds[j].y;
-        const d=Math.sqrt(dx*dx+dy*dy);
-        if (d<DM) { ligne(noeuds[i],noeuds[j],d); cnx.push([i,j]); }
+    for (let i = 0; i < noeuds.length; i++) {
+      const a = noeuds[i];
+      for (let j = i+1; j < noeuds.length; j++) {
+        const b = noeuds[j];
+        const dx = a.x - b.x, dy = a.y - b.y;
+        const d2 = dx*dx + dy*dy;
+        if (d2 < DM2) {
+          const d = Math.sqrt(d2);
+          const op = ((1 - d/DM) * 0.26).toFixed(3);
+          const [r1,g1,b1] = a.teinte, [r2,g2,b2] = b.teinte;
+          ctx.beginPath();
+          ctx.strokeStyle = `rgba(${(r1+r2)>>1},${(g1+g2)>>1},${(b1+b2)>>1},${op})`;
+          ctx.lineWidth = (a.estHub || b.estHub) ? 0.85 : 0.55;
+          ctx.moveTo(a.x|0, a.y|0); ctx.lineTo(b.x|0, b.y|0); ctx.stroke();
+          cnx.push([i, j]);
+        }
       }
     }
 
-    /* Nouveau paquet aléatoire */
-    if (paquets.length < MAX_PKT && cnx.length && Math.random()<0.032) {
+    if (paquets.length < MAX_PKT && cnx.length && Math.random() < 0.028) {
       const [i,j] = cnx[Math.floor(Math.random()*cnx.length)];
       paquets.push(new PaquetDonnees(noeuds[i], noeuds[j]));
     }
-    paquets = paquets.filter(p=>!p.fini);
-    paquets.forEach(p=>{ p.maj(); p.draw(ctx); });
+    paquets = paquets.filter(p => !p.fini);
+    paquets.forEach(p => { p.maj(); p.draw(ctx); });
 
-    /* Ondes WiFi */
-    ondes = ondes.filter(o=>!o.fini);
-    ondes.forEach(o=>{ o.maj(); o.draw(ctx); });
+    ondes = ondes.filter(o => !o.fini);
+    ondes.forEach(o => { o.maj(); o.draw(ctx); });
 
-    /* Noeuds */
     for (const n of noeuds) {
       n.maj();
       if (n.doitEmettre()) ondes.push(new OndeHub(n.x, n.y));
@@ -164,15 +168,24 @@ function lancerCanvas() {
     }
   }
 
-  /* Pause lorsque l'onglet est caché (économise le CPU) */
-  document.addEventListener('visibilitychange', () => { actif = !document.hidden; });
+  document.addEventListener('visibilitychange', () => {
+    actif = !document.hidden;
+    if (document.hidden) {
+      cancelAnimationFrame(animId); animId = null;
+    } else {
+      lastTime = 0; animId = requestAnimationFrame(frame);
+    }
+  });
 
-  init(); frame();
+  init(); animId = requestAnimationFrame(frame);
 
   let resT;
   window.addEventListener('resize', () => {
     clearTimeout(resT);
-    resT = setTimeout(() => { cancelAnimationFrame(animId); init(); frame(); }, 220);
+    resT = setTimeout(() => {
+      cancelAnimationFrame(animId); animId = null;
+      init(); animId = requestAnimationFrame(frame);
+    }, 250);
   });
 }
 
@@ -830,26 +843,37 @@ function initTypewriter() {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  lancerCanvas();
+  /* Critique : exécuté immédiatement */
   initNavbar();
   initHamburger();
   initLangue();
-  initScrollReveal();
-  initCompteurs();
-  initCarrousel();
-  initFAQ();
   initFormulaire();
   initSmoothScroll();
-  initMouseParallax();
-  initParticulesClick();
-  initNavHighlight();
+  initFAQ();
   initCalculateur();
-  initCardTilt();
-  initScrollParallax();
-  initDashboardTicker();
-  initCustomCursor();
-  initScrollProgress();
-  initMouseSpotlight();
-  initMagneticButtons();
-  initHeroStatsCounter();
+
+  /* Priorité moyenne : contenu visible au scroll */
+  setTimeout(() => {
+    initScrollReveal();
+    initCompteurs();
+    initCarrousel();
+    initNavHighlight();
+    initDashboardTicker();
+    initHeroStatsCounter();
+    initTypewriter();
+  }, 60);
+
+  /* Différé : effets visuels non-critiques */
+  const ric = window.requestIdleCallback || (cb => setTimeout(() => cb(), 200));
+  ric(() => {
+    lancerCanvas();
+    initMouseParallax();
+    initScrollParallax();
+    initParticulesClick();
+    initCardTilt();
+    initCustomCursor();
+    initScrollProgress();
+    initMouseSpotlight();
+    initMagneticButtons();
+  }, { timeout: 2500 });
 });

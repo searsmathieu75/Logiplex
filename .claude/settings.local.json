@@ -42,7 +42,16 @@
       "Bash(git -C /home/pi/logiplex config user.email \"searsmathieu75@gmail.com\")",
       "Bash(git -C /home/pi/logiplex config user.name \"Mathieu Sears\")",
       "Bash(git -C /home/pi/logiplex add .)",
-      "Bash(git -C /home/pi/logiplex commit -m ' *)"
+      "Bash(git -C /home/pi/logiplex commit -m ' *)",
+      "Bash(git -C /home/pi/logiplex remote add origin https://github.com/searsmathieu75/Logiplex.git)",
+      "Bash(git -C /home/pi/logiplex branch -M main)",
+      "Bash(git -C /home/pi/logiplex push -u origin main)",
+      "Bash(npm install *)",
+      "Bash(netlify --version)",
+      "Bash(npm list *)",
+      "Bash(git remote *)",
+      "Bash(grep -oP '.{20}function initNavbar.{0,300}' /home/pi/logiplex/js/main.min.js)",
+      "Bash(git commit *)"
     ]
   }
 }

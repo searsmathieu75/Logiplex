@@ -5,6 +5,7 @@
 
 /* ── Variables globales ───────────────────────────────────── */
 :root {
+  color-scheme: dark;
   /* Couleurs */
   --bg-dark:     #0A0E27;
   --bg-dark-2:   #0D1B2A;
@@ -79,6 +80,14 @@ address { font-style: normal; }
 
 .section { padding-block: var(--sec-py); }
 
+/* Rendu différé des sections sous le fold (perf LCP) */
+.section-solutions, .section-pourquoi, .section-comment,
+.section-temoignages, .section-calculateur, .section-faq,
+.section-contact, .cta-banner, #footer {
+  content-visibility: auto;
+  contain-intrinsic-size: 0 560px;
+}
+
 .section-dark  { background: var(--bg-dark); }
 .section-light { background: var(--bg-light); color: var(--text-dark); }
 .section-light .section-tag { color: var(--blue-dark); }
@@ -152,17 +161,18 @@ address { font-style: normal; }
   font-weight: 600;
   border-radius: 50px;
   transition: transform var(--t-fast), box-shadow var(--t-fast), filter var(--t-fast);
-  box-shadow: 0 0 0 rgba(0, 229, 255, 0);
+  box-shadow: 0 4px 16px rgba(0,229,255,0.15);
   white-space: nowrap;
+  will-change: transform;
 }
 .btn-primary svg { width: 18px; height: 18px; transition: transform var(--t-fast); }
 .btn-primary:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 32px rgba(0, 229, 255, 0.35);
-  filter: brightness(1.08);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 36px rgba(0,229,255,0.38), 0 4px 12px rgba(59,130,246,0.22);
+  filter: brightness(1.1);
 }
-.btn-primary:hover svg { transform: translateX(3px); }
-.btn-primary:active { transform: translateY(0); }
+.btn-primary:hover svg { transform: translateX(4px); }
+.btn-primary:active { transform: translateY(-1px); box-shadow: 0 4px 16px rgba(0,229,255,0.2); }
 .btn-primary.btn-full { width: 100%; justify-content: center; border-radius: var(--radius-sm); padding: 16px; font-size: 1rem; }
 
 .btn-ghost {
@@ -1001,9 +1011,10 @@ address { font-style: normal; }
   border: 1px solid var(--glass-border);
   border-radius: var(--radius-sm);
   overflow: hidden;
-  transition: border-color var(--t-fast);
+  transition: border-color var(--t-fast), box-shadow var(--t-fast);
 }
-.faq-item:hover { border-color: rgba(0,229,255,0.2); }
+.faq-item:hover { border-color: rgba(0,229,255,0.22); box-shadow: 0 4px 20px rgba(0,0,0,0.15); }
+.faq-item.open { border-color: rgba(0,229,255,0.18); }
 
 .faq-q {
   display: flex;
@@ -1261,11 +1272,12 @@ a.contact-detail:hover { color: var(--cyan); }
 /* ── ANIMATIONS AU DÉFILEMENT ─────────────────────────────── */
 .reveal {
   opacity: 0;
-  transform: translateY(28px);
-  transition: opacity 0.65s var(--ease), transform 0.65s var(--ease);
+  transform: translateY(24px);
+  transition: opacity 0.6s var(--ease), transform 0.6s var(--ease);
   transition-delay: var(--delay, 0ms);
+  will-change: opacity, transform;
 }
-.reveal.visible { opacity: 1; transform: translateY(0); }
+.reveal.visible { opacity: 1; transform: translateY(0); will-change: auto; }
 
 /* Délais pour les cartes en cascade */
 [data-delay="0"]   { transition-delay: 0ms !important; }
@@ -1337,8 +1349,12 @@ a.contact-detail:hover { color: var(--cyan); }
 /* ── FOCUS VISIBLE (accessibilité) ───────────────────────── */
 :focus-visible {
   outline: 2px solid var(--cyan);
-  outline-offset: 3px;
-  border-radius: 3px;
+  outline-offset: 4px;
+  border-radius: 4px;
+  box-shadow: 0 0 0 4px rgba(0,229,255,0.18);
+}
+button:focus-visible, a:focus-visible {
+  outline-offset: 5px;
 }
 
 /* ── PARTICULES EXPLOSION CTA ─────────────────────────────── */
@@ -1683,10 +1699,24 @@ a.contact-detail:hover { color: var(--cyan); }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
   #networkCanvas { display: none; }
   .hero-orb { display: none; }
+  .cursor-dot, .cursor-ring { display: none; }
+  .mouse-spotlight { display: none !important; }
+}
+
+@media print {
+  #networkCanvas, .cursor-dot, .cursor-ring,
+  .mouse-spotlight, #scrollProgress,
+  .hamburger, .lang-toggle, nav.navbar,
+  .explosion-particule { display: none !important; }
+  body { background: #fff; color: #000; }
+  a { text-decoration: underline; }
+  .section { padding-block: 24px; }
 }
 
 /* ── CURSEUR PERSONNALISÉ LUMINEUX ────────────────────────── */
@@ -1746,7 +1776,8 @@ body.has-custom-cursor textarea { cursor: none !important; }
   z-index: 1001;
   pointer-events: none;
   box-shadow: 0 0 8px rgba(0,229,255,0.6);
-  transition: width 0.1s linear;
+  transition: width 0.08s linear;
+  will-change: width;
 }
 
 /* ── SPOTLIGHT SOURIS (sections sombres) ──────────────────── */

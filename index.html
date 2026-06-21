@@ -16,6 +16,11 @@
   <link rel="alternate" hreflang="x-default" href="https://logiplex.ca/">
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <meta name="theme-color" content="#0A0E27">
+  <meta name="color-scheme" content="dark">
+  <meta name="geo.region" content="CA-QC">
+  <meta name="geo.placename" content="Montréal, Québec">
+  <meta name="geo.position" content="45.5017;-73.5673">
+  <meta name="ICBM" content="45.5017, -73.5673">
 
   <!-- Open Graph -->
   <meta property="og:title" content="Logiplex — Solutions WiFi pour immeubles multilogements au Québec">
@@ -54,7 +59,7 @@
       "url": "https://logiplex.ca",
       "telephone": "+15145550123",
       "email": "info@logiplex.ca",
-      "image": "https://clinquant-sherbet-d8204c.netlify.app/og-image.svg",
+      "image": "https://logiplex.ca/og-image.svg",
       "logo": "https://logiplex.ca/logo.svg",
       "priceRange": "$$",
       "address": {
@@ -144,18 +149,32 @@
   ]
   </script>
 
+  <!-- WebSite schema pour Rich Results -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "url": "https://logiplex.ca",
+    "name": "Logiplex",
+    "inLanguage": ["fr-CA", "en-CA"],
+    "publisher": { "@type": "Organization", "name": "Logiplex inc." }
+  }
+  </script>
+
   <!-- Polices Google : Space Grotesk (titres) + Inter (corps) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <!-- Chargement non-bloquant des polices pour meilleur LCP -->
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
-  <noscript><link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"></noscript>
+  <link rel="dns-prefetch" href="//fonts.googleapis.com">
+  <link rel="dns-prefetch" href="//fonts.gstatic.com">
+  <!-- Chargement non-bloquant — poids réduits au strict nécessaire -->
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"></noscript>
   <!-- Polices de secours système pendant le chargement -->
   <style>
     :root { --ff-head: 'Space Grotesk', system-ui, -apple-system, sans-serif; --ff-body: 'Inter', system-ui, -apple-system, sans-serif; }
   </style>
 
-  <link rel="stylesheet" href="css/style.min.css?v=17">
+  <link rel="stylesheet" href="css/style.min.css?v=18">
 </head>
 <body>
   <!-- Lien d'accessibilité : aller au contenu principal -->
@@ -1263,11 +1282,15 @@
               <div class="form-group">
                 <label for="name" data-fr="Nom complet *" data-en="Full name *">Nom complet *</label>
                 <input type="text" id="name" name="name" required autocomplete="name"
+                       aria-required="true"
+                       data-fr-ph="Jean Tremblay" data-en-ph="John Smith"
                        placeholder="Jean Tremblay">
               </div>
               <div class="form-group">
                 <label for="email" data-fr="Courriel *" data-en="Email *">Courriel *</label>
                 <input type="email" id="email" name="email" required autocomplete="email"
+                       aria-required="true"
+                       data-fr-ph="jean@exemple.com" data-en-ph="john@example.com"
                        placeholder="jean@exemple.com">
               </div>
             </div>
@@ -1275,11 +1298,12 @@
               <div class="form-group">
                 <label for="phone" data-fr="Téléphone" data-en="Phone">Téléphone</label>
                 <input type="tel" id="phone" name="phone" autocomplete="tel"
+                       data-fr-ph="(514) 555-0000" data-en-ph="(514) 555-0000"
                        placeholder="(514) 555-0000">
               </div>
               <div class="form-group">
                 <label for="units" data-fr="Nombre de logements *" data-en="Number of units *">Nombre de logements *</label>
-                <select id="units" name="units" required autocomplete="off">
+                <select id="units" name="units" required aria-required="true" autocomplete="off">
                   <option value="" data-fr="Sélectionner..." data-en="Select...">Sélectionner...</option>
                   <option value="10-24" data-fr="10 à 24 logements" data-en="10 to 24 units">10 à 24 logements</option>
                   <option value="25-49" data-fr="25 à 49 logements" data-en="25 to 49 units">25 à 49 logements</option>
@@ -1365,11 +1389,13 @@
 
         <div class="footer-col">
           <h3 data-fr="Contact" data-en="Contact">Contact</h3>
-          <ul>
-            <li><a href="mailto:info@logiplex.ca">info@logiplex.ca</a></li>
-            <li><a href="tel:+15145550123">1 (514) 555-0123</a></li>
-            <li data-fr="Montréal, Québec, Canada" data-en="Montreal, Quebec, Canada">Montréal, Québec, Canada</li>
-          </ul>
+          <address>
+            <ul>
+              <li><a href="mailto:info@logiplex.ca" aria-label="Envoyer un courriel à Logiplex">info@logiplex.ca</a></li>
+              <li><a href="tel:+15145550123" aria-label="Appeler Logiplex">1 (514) 555-0123</a></li>
+              <li data-fr="Montréal, Québec, Canada" data-en="Montreal, Quebec, Canada">Montréal, Québec, Canada</li>
+            </ul>
+          </address>
           <a href="#contact" class="btn-primary footer-cta" data-fr="Obtenir une soumission" data-en="Get a Quote">Obtenir une soumission</a>
         </div>
 
@@ -1392,6 +1418,6 @@
     <a href="#contact" class="btn-primary" data-fr="Obtenir une soumission gratuite" data-en="Get a free quote">Obtenir une soumission gratuite</a>
   </div>
 
-  <script src="js/main.min.js?v=17" defer></script>
+  <script src="js/main.min.js?v=18" defer></script>
 </body>
 </html>
