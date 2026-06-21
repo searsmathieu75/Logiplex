@@ -35,7 +35,7 @@
   <text x="100" y="98" text-anchor="middle" font-family="system-ui,sans-serif" font-weight="700" font-size="24" fill="url(#logoGrad)">L</text>
 
   <!-- Brand name -->
-  <text x="148" y="100" font-family="system-ui,sans-serif" font-weight="700" font-size="32" letter-spacing="-0.5" fill="white">Logiplex</text>
+  <text x="148" y="100" font-family="system-ui,sans-serif" font-weight="700" font-size="32" letter-spacing="-0.5" fill="white">Plexio</text>
 
   <!-- Separator line -->
   <rect x="70" y="145" width="52" height="3" rx="1.5" fill="url(#brandGrad)"/>
@@ -63,5 +63,5 @@
 
   <!-- Domain badge -->
   <rect x="70" y="553" width="155" height="36" rx="18" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.12)" stroke-width="1"/>
-  <text x="148" y="576" text-anchor="middle" font-family="system-ui,sans-serif" font-size="15" fill="rgba(255,255,255,0.55)">logiplex.ca</text>
+  <text x="148" y="576" text-anchor="middle" font-family="system-ui,sans-serif" font-size="15" fill="rgba(255,255,255,0.55)">plexio.ca</text>
 </svg>

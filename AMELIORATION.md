@@ -1,4 +1,4 @@
-# LOGIPLEX — Journal d'auto-amélioration
+# PLEXIO — Journal d'auto-amélioration
 
 ---
 

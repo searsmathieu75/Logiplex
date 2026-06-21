@@ -1,5 +1,5 @@
 /* ============================================================
-   LOGIPLEX — JavaScript v3 — Maximum
+   PLEXIO — JavaScript v3 — Maximum
    Canvas avancé · Paquets de données · Ondes WiFi
    Particules CTA · Page Visibility · Validation formulaire
    ============================================================ */
@@ -282,7 +282,7 @@ function appliquerLangue(lang) {
   });
   const sel=document.getElementById('units');
   if (sel) sel.querySelectorAll('option').forEach((o,i)=>{ if(OPTS[lang][i]) o.textContent=OPTS[lang][i]; });
-  localStorage.setItem('logiplex-lang', lang);
+  localStorage.setItem('plexio-lang', lang);
 
   /* Délai de réponse */
   initDelaiReponse();
@@ -293,7 +293,7 @@ function appliquerLangue(lang) {
 
 function initLangue() {
   const btn=document.getElementById('langToggle');
-  appliquerLangue(localStorage.getItem('logiplex-lang')||'fr');
+  appliquerLangue(localStorage.getItem('plexio-lang')||'fr');
   if (btn) btn.addEventListener('click', () => appliquerLangue(document.documentElement.lang==='fr'?'en':'fr'));
 }
 

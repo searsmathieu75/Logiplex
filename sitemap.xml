@@ -2,9 +2,9 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://logiplex.ca/</loc>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://logiplex.ca/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://logiplex.ca/?lang=en"/>
+    <loc>https://plexio.ca/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://plexio.ca/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://plexio.ca/?lang=en"/>
     <lastmod>2026-06-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>

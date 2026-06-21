@@ -1,10 +1,10 @@
-# LOGIPLEX — Changelog des améliorations autonomes
+# PLEXIO — Changelog des améliorations autonomes
 
 ---
 
 ## Cycle 17 — Polish final : calculateur, bilinguisme ticker, meta iOS (2026-06-20)
 ### Problèmes identifiés
-- Calculateur : `min="1"` alors que Logiplex exige 10+ logements → un visiteur pouvait glisser à 1 unité et voir `85 $/mois`, incohérent avec le message "10+ logements" affiché partout sur la page
+- Calculateur : `min="1"` alors que Plexio exige 10+ logements → un visiteur pouvait glisser à 1 unité et voir `85 $/mois`, incohérent avec le message "10+ logements" affiché partout sur la page
 - Dashboard ticker : les champs `units` et `barLabel` étaient hardcodés en français même en mode EN (`'120 logements · Montréal'`, `'Taux d'adoption: '`)
 - `"En direct"` dans la carte hero n'avait aucun attribut `data-fr`/`data-en` → restait en français lors du toggle de langue
 ### Fix appliqué
@@ -60,7 +60,7 @@ Le site n'avait aucun favicon — les onglets de navigateur affichaient une icô
 - Ajout `<link rel="icon" type="image/svg+xml" href="favicon.svg">` dans le `<head>` (après les hreflang)
 - Ajout `<meta name="theme-color" content="#0A0E27">` — peint la barre de navigation/adresse en bleu marine sur Chrome Android et Safari iOS
 ### Résultat
-L'onglet navigateur affiche maintenant l'icône Logiplex (hexagone L cyan-bleu) sur fond sombre. Les SVG favicons sont supportés par Chrome, Firefox, Edge et Safari 16+. Sur mobile Android, la barre d'interface système adopte `#0A0E27` pour une expérience immersive cohérente.
+L'onglet navigateur affiche maintenant l'icône Plexio (hexagone L cyan-bleu) sur fond sombre. Les SVG favicons sont supportés par Chrome, Firefox, Edge et Safari 16+. Sur mobile Android, la barre d'interface système adopte `#0A0E27` pour une expérience immersive cohérente.
 
 ---
 
@@ -114,7 +114,7 @@ Sur iPad Pro (1024px) et tablettes en mode portrait (768px) : grille marchés é
 
 ## Cycle 8 — Clarté du message hero : 5 services complets (2026-06-20)
 ### Problème identifié
-Le sous-titre du hero ne mentionnait que 3 des 5 services (WiFi, caméras, téléphonie IP) — omettant les **interphones intelligents** et l'**IPTV**, pourtant au cœur de l'offre Logiplex. Un prospect B2B qui scanne la page d'accueil ne voyait pas la gamme complète au premier coup d'oeil.
+Le sous-titre du hero ne mentionnait que 3 des 5 services (WiFi, caméras, téléphonie IP) — omettant les **interphones intelligents** et l'**IPTV**, pourtant au cœur de l'offre Plexio. Un prospect B2B qui scanne la page d'accueil ne voyait pas la gamme complète au premier coup d'oeil.
 ### Fix appliqué
 - Réécriture du `data-fr` et `data-en` du `.hero-sub` pour lister les 5 services : "WiFi haute vitesse, caméras 4K, interphones intelligents, téléphonie IP et IPTV — infrastructure télécom complète clé en main pour immeubles de 10+ logements au Québec. Gérée par nos experts, 24/7."
 - Mise à jour cohérente du `og:description` (Open Graph)

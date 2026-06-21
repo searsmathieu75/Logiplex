@@ -1,13 +1,13 @@
-# Logiplex — Site web
+# Plexio — Site web
 
-Site web complet de Logiplex, entreprise québécoise de solutions WiFi/internet
+Site web complet de Plexio, entreprise québécoise de solutions WiFi/internet
 clé en main pour immeubles multilogements.
 
 ## Lancer le site en local
 
 ### Option A — Python (recommandé, aucune dépendance)
 
-Ouvrez un terminal dans le répertoire `/home/pi/logiplex` et exécutez :
+Ouvrez un terminal dans le répertoire `/home/pi/plexio` et exécutez :
 
 ```bash
 python3 -m http.server 8080
@@ -46,7 +46,7 @@ hostname -I | awk '{print $1}'
 ## Structure des fichiers
 
 ```
-logiplex/
+plexio/
 ├── index.html          — Page principale (toutes les sections)
 ├── css/
 │   └── style.css       — Feuille de styles complète

@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://logiplex.ca/sitemap.xml
+Sitemap: https://plexio.ca/sitemap.xml
