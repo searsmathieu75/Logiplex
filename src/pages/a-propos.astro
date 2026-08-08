@@ -8,14 +8,14 @@ import { contactInfo } from '../data/navigation';
   description="GoWifi prend en charge les services connectés des immeubles multilogements au Québec : mode d'intervention, territoire et responsabilités."
   path="/a-propos"
 >
-  <section class="bg-charbon text-technique">
+  <section class="surface-profonde">
     <div class="mx-auto max-w-[88rem] px-6 md:px-12 pt-20 pb-24 md:pt-28 md:pb-32">
-      <div class="grid grid-cols-4 md:grid-cols-12 gap-8 md:gap-12">
+      <div class="grid grid-cols-4 md:grid-cols-12 gap-8 md:gap-12" data-reveal-groupe>
         <div class="col-span-4 md:col-span-3">
           <p class="section-label text-liaison">L'entreprise</p>
         </div>
         <div class="col-span-4 md:col-span-8">
-          <h1 class="font-display text-section">
+          <h1 class="font-display text-section texte-degrade" data-reveal>
             Un opérateur, pas un revendeur d'équipement.
           </h1>
           <p class="mt-8 max-w-2xl text-lg text-technique/75">
@@ -29,11 +29,11 @@ import { contactInfo } from '../data/navigation';
     </div>
   </section>
 
-  <section class="bg-technique text-charbon">
+  <section class="surface-sombre">
     <div class="mx-auto max-w-[88rem] px-6 md:px-12 py-24 md:py-32">
-      <div class="grid grid-cols-4 md:grid-cols-12 gap-8 md:gap-12">
+      <div class="grid grid-cols-4 md:grid-cols-12 gap-8 md:gap-12" data-reveal-groupe>
         <div class="col-span-4 md:col-span-3">
-          <h2 class="section-label text-charbon/60">Mode d'intervention</h2>
+          <h2 class="section-label text-technique/50">Mode d'intervention</h2>
         </div>
         <div class="col-span-4 md:col-span-8 space-y-8 max-w-2xl text-lg">
           <p>
@@ -56,19 +56,19 @@ import { contactInfo } from '../data/navigation';
     </div>
   </section>
 
-  <section class="bg-charbon text-technique">
+  <section class="surface-profonde">
     <div class="mx-auto max-w-[88rem] px-6 md:px-12 py-24 md:py-32">
-      <div class="grid grid-cols-4 md:grid-cols-12 gap-8 md:gap-12">
+      <div class="grid grid-cols-4 md:grid-cols-12 gap-8 md:gap-12" data-reveal-groupe>
         <div class="col-span-4 md:col-span-3">
           <h2 class="section-label text-liaison">Données de l'entreprise</h2>
         </div>
         <div class="col-span-4 md:col-span-8">
           <dl class="grid grid-cols-1 md:grid-cols-2 gap-x-12">
-            <div class="border-t border-technique/15 py-6">
+            <div class="verre p-5" data-reveal data-tilt>
               <dt class="section-label text-technique/50">Personne-ressource</dt>
               <dd class="mt-2 font-display text-2xl leading-none">{contactInfo.personne}</dd>
             </div>
-            <div class="border-t border-technique/15 py-6">
+            <div class="verre p-5" data-reveal data-tilt>
               <dt class="section-label text-technique/50">Téléphone</dt>
               <dd class="mt-2 font-display text-2xl leading-none">
                 <a href={contactInfo.telephoneHref} class="hover:text-liaison transition-colors">
@@ -76,19 +76,19 @@ import { contactInfo } from '../data/navigation';
                 </a>
               </dd>
             </div>
-            <div class="border-t border-technique/15 py-6">
+            <div class="verre p-5" data-reveal data-tilt>
               <dt class="section-label text-technique/50">Immeubles visés</dt>
               <dd class="mt-2 font-display text-2xl leading-none">6 à 200 portes</dd>
             </div>
-            <div class="border-t border-technique/15 py-6">
+            <div class="verre p-5" data-reveal data-tilt>
               <dt class="section-label text-technique/50">Territoire desservi</dt>
               <dd class="mt-2 text-sm text-technique/45">[À CONFIRMER : villes et régions]</dd>
             </div>
-            <div class="border-t border-technique/15 py-6">
+            <div class="verre p-5" data-reveal data-tilt>
               <dt class="section-label text-technique/50">Forme juridique et immatriculation</dt>
               <dd class="mt-2 text-sm text-technique/45">[À CONFIRMER : raison sociale et numéro d'entreprise du Québec]</dd>
             </div>
-            <div class="border-t border-technique/15 py-6">
+            <div class="verre p-5" data-reveal data-tilt>
               <dt class="section-label text-technique/50">Licences et assurances</dt>
               <dd class="mt-2 text-sm text-technique/45">[À CONFIRMER : licences applicables aux travaux réalisés et couverture d'assurance]</dd>
             </div>
@@ -96,7 +96,7 @@ import { contactInfo } from '../data/navigation';
 
           <a
             href="/contact"
-            class="mt-16 inline-block bg-liaison on-liaison text-charbon px-8 py-4 font-semibold hover:bg-liaison/85 transition-colors"
+            class="bouton on-liaison mt-16 px-8 py-4 text-lg"
           >
             Réserver un appel de qualification
           </a>

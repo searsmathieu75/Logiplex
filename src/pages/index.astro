@@ -32,68 +32,112 @@ const problemes = [
   ogTitle="Un seul opérateur pour les services connectés de votre immeuble"
   ogDescription="Cinq services gérés par une même équipe pour les propriétaires, gestionnaires immobiliers et syndicats de copropriété."
 >
-  <!-- 01 / Hero
-       La colonne « libellé » séparée creusait un vide en haut à gauche et
-       détachait l'étiquette du titre. Le libellé, le titre et l'action sont
-       maintenant accrochés à la même dorsale, décalés d'une colonne : la
-       structure reste asymétrique sans laisser de trou. -->
-  <section class="bg-charbon text-technique">
-    <div class="mx-auto max-w-[88rem] px-6 md:px-12 pt-14 pb-24 md:pt-20 md:pb-32">
+  <!-- 01 / Hero : réseau animé en canvas + dégradé dérivant -->
+  <section class="surface-hero relative overflow-hidden">
+    <canvas
+      id="hero-canvas"
+      aria-hidden="true"
+      class="pointer-events-auto absolute inset-0 h-full w-full"></canvas>
+
+    <div
+      aria-hidden="true"
+      data-parallaxe="0.12"
+      class="pointer-events-none absolute -right-40 -top-40 h-[34rem] w-[34rem] rounded-full bg-liaison/12 blur-[130px]">
+    </div>
+    <div
+      aria-hidden="true"
+      data-parallaxe="-0.07"
+      class="pointer-events-none absolute -left-32 top-1/3 h-[26rem] w-[26rem] rounded-full bg-azur/12 blur-[120px]">
+    </div>
+
+    <div class="relative mx-auto max-w-[88rem] px-6 pb-28 pt-16 md:px-12 md:pb-40 md:pt-24">
       <div class="grid grid-cols-4 md:grid-cols-12">
-        <div class="col-span-4 md:col-start-2 md:col-span-10 spine-hero">
-          <p class="spine-tap section-label text-liaison">
+        <div class="spine-hero col-span-4 md:col-start-2 md:col-span-10" data-reveal-groupe>
+          <p class="spine-tap section-label text-liaison" data-reveal>
             Services gérés pour immeubles multilogements
           </p>
 
-          <h1 class="spine-tap mt-10 font-display text-display max-w-[19ch]">
+          <h1
+            class="spine-tap texte-degrade mt-10 max-w-[19ch] font-display text-display"
+            data-reveal
+          >
             Un seul opérateur pour connecter et gérer vos immeubles de 6 à 200 portes.
           </h1>
 
-          <p class="mt-10 max-w-xl text-lg md:text-xl text-technique/70">
+          <p class="mt-10 max-w-xl text-lg text-technique/70 md:text-xl" data-reveal>
             Internet partagé, surveillance IP, interphone, téléphonie IP et IPTV,
             installés et pris en charge par la même équipe.
           </p>
 
-          <div class="spine-tap mt-12">
-            <a
-              href="/contact"
-              class="inline-block bg-liaison on-liaison text-charbon px-8 py-4 text-lg font-semibold hover:bg-liaison/85 transition-colors"
-            >
+          <div class="spine-tap mt-12 flex flex-wrap items-center gap-4" data-reveal>
+            <a href="/contact" class="bouton on-liaison px-8 py-4 text-lg">
               Réserver un appel de qualification
             </a>
-            <p class="mt-5 text-sm text-technique/50">
-              Pour propriétaires, gestionnaires immobiliers et syndicats de copropriété.
-            </p>
+            <a href="/#services" class="bouton-fantome px-7 py-4 text-lg text-technique/85">
+              Voir les cinq services
+            </a>
           </div>
+
+          <p class="mt-5 text-sm text-technique/50" data-reveal>
+            Pour propriétaires, gestionnaires immobiliers et syndicats de copropriété.
+          </p>
+
+          <!-- Chiffres clés, comptés à l'apparition -->
+          <dl class="mt-16 grid max-w-2xl grid-cols-2 gap-6 md:grid-cols-4" data-reveal-groupe>
+            <div class="verre p-5" data-reveal data-tilt style="--accent:#20c997">
+              <dd class="font-display text-3xl leading-none text-liaison">
+                <span data-compteur="5">0</span>
+              </dd>
+              <dt class="section-label mt-2 text-technique/45">Services</dt>
+            </div>
+            <div class="verre p-5" data-reveal data-tilt style="--accent:#00e5ff">
+              <dd class="font-display text-3xl leading-none text-cyan">
+                <span data-compteur="200" data-suffixe="+">0</span>
+              </dd>
+              <dt class="section-label mt-2 text-technique/45">Portes</dt>
+            </div>
+            <div class="verre p-5" data-reveal data-tilt style="--accent:#3b82f6">
+              <dd class="font-display text-3xl leading-none text-azur">
+                <span data-compteur="1">0</span>
+              </dd>
+              <dt class="section-label mt-2 text-technique/45">Interlocuteur</dt>
+            </div>
+            <div class="verre p-5" data-reveal data-tilt style="--accent:#8b5cf6">
+              <dd class="font-display text-3xl leading-none text-violet">
+                <span data-compteur="4">0</span>
+              </dd>
+              <dt class="section-label mt-2 text-technique/45">Étapes</dt>
+            </div>
+          </dl>
         </div>
       </div>
     </div>
   </section>
 
   <!-- 02 / Le problème -->
-  <section class="bg-technique text-charbon">
+  <section class="surface-sombre">
     <div class="mx-auto max-w-[88rem] px-6 md:px-12 py-24 md:py-32">
-      <div class="grid grid-cols-4 md:grid-cols-12 gap-8 md:gap-12">
+      <div class="grid grid-cols-4 md:grid-cols-12 gap-8 md:gap-12" data-reveal-groupe>
         <div class="col-span-4 md:col-span-3">
-          <h2 class="section-label text-charbon/60">02 / Le problème</h2>
+          <h2 class="section-label text-liaison" data-reveal>02 / Le problème</h2>
         </div>
 
         <div class="col-span-4 md:col-span-8">
-          <p class="font-display text-section">
+          <p class="font-display text-section" data-reveal>
             Quand chaque système a son fournisseur, chaque panne devient votre problème.
           </p>
 
           <ul class="spine mt-16 space-y-10">
             {
               problemes.map((probleme, index) => (
-                <li class="spine-node">
+                <li class="spine-node" data-reveal>
                   <div class="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-8">
-                    <p class="section-label text-charbon/35 md:col-span-2">
+                    <p class="section-label text-technique/35 md:col-span-2">
                       {String(index + 1).padStart(2, '0')}
                     </p>
                     <div class="md:col-span-10">
                       <h3 class="font-display text-2xl leading-tight">{probleme.titre}</h3>
-                      <p class="mt-3 max-w-xl text-charbon/75">{probleme.texte}</p>
+                      <p class="mt-3 max-w-xl text-technique/70">{probleme.texte}</p>
                     </div>
                   </div>
                 </li>

@@ -2,45 +2,55 @@
 import { services } from '../data/services';
 ---
 
-<!-- Asymétrie : libellé sur 3 colonnes, contenu sur 8, une colonne vide. -->
-<section id="services" class="bg-charbon text-technique">
-  <div class="mx-auto max-w-[88rem] px-6 md:px-12 py-24 md:py-32">
-    <div class="grid grid-cols-4 md:grid-cols-12 gap-8 md:gap-12">
+<section id="services" class="surface-profonde relative overflow-hidden">
+  <div
+    aria-hidden="true"
+    data-parallaxe="0.06"
+    class="pointer-events-none absolute -right-24 top-10 h-[30rem] w-[30rem] rounded-full bg-violet/10 blur-[130px]">
+  </div>
+
+  <div class="relative mx-auto max-w-[88rem] px-6 py-24 md:px-12 md:py-32">
+    <div class="grid grid-cols-4 gap-8 md:grid-cols-12 md:gap-12" data-reveal-groupe>
       <div class="col-span-4 md:col-span-3">
-        <h2 class="section-label text-liaison">03 / Une équipe</h2>
+        <h2 class="section-label text-liaison" data-reveal>03 / Une équipe</h2>
       </div>
 
       <div class="col-span-4 md:col-span-8">
-        <p class="font-display text-section">
-          Cinq services. Un seul point de responsabilité.
+        <p class="font-display text-section" data-reveal>
+          Cinq services. <span class="texte-degrade">Un seul point de responsabilité.</span>
         </p>
-        <p class="mt-8 max-w-2xl text-lg text-technique/75">
+        <p class="mt-8 max-w-2xl text-lg text-technique/70" data-reveal>
           GoWifi réunit les services connectés de l'immeuble dans un plan commun,
           puis reste votre point de contact après l'installation.
         </p>
 
-        <!-- Colonne vertébrale : les cinq services accrochés au même trait. -->
-        <ul class="spine mt-16 space-y-12">
+        <ul class="spine mt-16 space-y-6" data-reveal-groupe>
           {
             services.map((service, index) => (
-              <li class="spine-node">
-                <div class="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-8">
-                  <p class="section-label text-technique/40 md:col-span-2">
-                    {String(index + 1).padStart(2, '0')}
-                  </p>
-                  <div class="md:col-span-10">
-                    <h3 class="font-display text-2xl md:text-3xl leading-tight">
-                      {service.name}
-                    </h3>
-                    <p class="mt-3 max-w-xl text-technique/75">{service.cardBlurb}</p>
-                    <a
-                      href={`/${service.slug}`}
-                      class="mt-4 inline-block text-sm font-semibold text-liaison underline underline-offset-4 hover:text-technique transition-colors"
+              <li class="spine-node" style={`--accent:${service.accent}`} data-reveal>
+                <a href={`/${service.slug}`} class="verre block p-6 md:p-8" data-tilt>
+                  <div class="grid grid-cols-1 gap-4 md:grid-cols-12 md:gap-8">
+                    <p
+                      class="font-display text-3xl leading-none md:col-span-2"
+                      style={`color:${service.accent}`}
                     >
-                      {service.cardLinkLabel}
-                    </a>
+                      {String(index + 1).padStart(2, '0')}
+                    </p>
+                    <div class="md:col-span-10">
+                      <h3 class="font-display text-2xl leading-tight md:text-3xl">
+                        {service.name}
+                      </h3>
+                      <p class="mt-3 max-w-xl text-technique/70">{service.cardBlurb}</p>
+                      <span
+                        class="mt-4 inline-flex items-center gap-2 text-sm font-semibold"
+                        style={`color:${service.accent}`}
+                      >
+                        {service.cardLinkLabel}
+                        <span aria-hidden="true">&rarr;</span>
+                      </span>
+                    </div>
                   </div>
-                </div>
+                </a>
               </li>
             ))
           }

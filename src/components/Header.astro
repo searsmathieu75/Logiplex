@@ -3,7 +3,7 @@ import { primaryNav, cta } from '../data/navigation';
 import Logo from './Logo.astro';
 ---
 
-<header class="bg-charbon text-technique sticky top-0 z-50">
+<header class="sticky top-0 z-50 border-b border-white/8 bg-charbon/72 backdrop-blur-xl">
   <div class="mx-auto max-w-[88rem] px-6 md:px-12">
     <div class="flex items-center justify-between gap-8 py-5 md:py-6">
       <a href="/" class="hover:text-liaison transition-colors" aria-label="GoWifi, accueil">
@@ -18,7 +18,7 @@ import Logo from './Logo.astro';
               <li>
                 <a
                   href={link.href}
-                  class="text-sm font-medium text-technique/80 hover:text-liaison transition-colors"
+                  class="relative text-sm font-medium text-technique/75 transition-colors hover:text-liaison after:absolute after:-bottom-1.5 after:left-0 after:h-px after:w-0 after:bg-liaison after:transition-all hover:after:w-full"
                 >
                   {link.label}
                 </a>
@@ -28,7 +28,7 @@ import Logo from './Logo.astro';
           <li>
             <a
               href={cta.href}
-              class="bg-liaison on-liaison text-charbon px-5 py-2.5 text-sm font-semibold hover:bg-liaison/85 transition-colors inline-block"
+              class="bouton on-liaison px-5 py-2.5 text-sm"
             >
               {cta.label}
             </a>
@@ -55,7 +55,7 @@ import Logo from './Logo.astro';
   <nav
     id="menu-mobile"
     aria-label="Navigation mobile"
-    class="md:hidden hidden border-t border-technique/15"
+    class="md:hidden hidden border-t border-white/10 bg-charbon/95 backdrop-blur-xl"
   >
     <ul class="mx-auto max-w-[88rem] px-6 py-6 flex flex-col gap-1">
       {
@@ -75,7 +75,7 @@ import Logo from './Logo.astro';
         <a
           href={cta.href}
           data-menu-link
-          class="bg-liaison on-liaison text-charbon block px-5 py-3 text-center font-semibold"
+          class="bouton on-liaison block px-5 py-3 text-center"
         >
           {cta.longLabel}
         </a>

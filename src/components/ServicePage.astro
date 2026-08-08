@@ -20,7 +20,7 @@ const autres = services.filter((item) => item.slug !== slug);
   ogDescription={service.cardBlurb}
 >
   <!-- En-tête de service -->
-  <section class="bg-charbon text-technique">
+  <section class="surface-profonde">
     <div class="mx-auto max-w-[88rem] px-6 md:px-12 pt-20 pb-24 md:pt-28 md:pb-32">
       <nav aria-label="Fil d'Ariane" class="mb-12">
         <ol class="flex flex-wrap items-center gap-2 text-sm text-technique/50">
@@ -32,16 +32,16 @@ const autres = services.filter((item) => item.slug !== slug);
         </ol>
       </nav>
 
-      <div class="grid grid-cols-4 md:grid-cols-12 gap-8 md:gap-12">
+      <div class="grid grid-cols-4 md:grid-cols-12 gap-8 md:gap-12" data-reveal-groupe>
         <div class="col-span-4 md:col-span-3">
           <p class="section-label text-liaison">{service.name}</p>
         </div>
         <div class="col-span-4 md:col-span-8">
-          <h1 class="font-display text-section">{service.h1}</h1>
-          <p class="mt-8 max-w-2xl text-lg text-technique/75">{service.definition}</p>
+          <h1 class="font-display text-section texte-degrade" data-reveal>{service.h1}</h1>
+          <p class="mt-8 max-w-2xl text-lg text-technique/70" data-reveal>{service.definition}</p>
           <a
             href="/contact"
-            class="mt-10 inline-block bg-liaison on-liaison text-charbon px-8 py-4 font-semibold hover:bg-liaison/85 transition-colors"
+            class="bouton on-liaison mt-10 px-8 py-4 text-lg"
           >
             Réserver un appel de qualification
           </a>
@@ -51,17 +51,17 @@ const autres = services.filter((item) => item.slug !== slug);
   </section>
 
   <!-- Situations -->
-  <section class="bg-technique text-charbon">
+  <section class="surface-sombre">
     <div class="mx-auto max-w-[88rem] px-6 md:px-12 py-24 md:py-32">
-      <div class="grid grid-cols-4 md:grid-cols-12 gap-8 md:gap-12">
+      <div class="grid grid-cols-4 md:grid-cols-12 gap-8 md:gap-12" data-reveal-groupe>
         <div class="col-span-4 md:col-span-3">
-          <h2 class="section-label text-charbon/60">Quand ce service devient pertinent</h2>
+          <h2 class="section-label text-technique/50">Quand ce service devient pertinent</h2>
         </div>
         <div class="col-span-4 md:col-span-8">
           <ul class="spine space-y-8">
             {
               service.situations.map((situation) => (
-                <li class="spine-node max-w-2xl text-lg">{situation}</li>
+                <li class="spine-node max-w-2xl text-lg" data-reveal>{situation}</li>
               ))
             }
           </ul>
@@ -71,9 +71,9 @@ const autres = services.filter((item) => item.slug !== slug);
   </section>
 
   <!-- Inclus et prérequis -->
-  <section class="bg-charbon text-technique">
+  <section class="surface-profonde">
     <div class="mx-auto max-w-[88rem] px-6 md:px-12 py-24 md:py-32">
-      <div class="grid grid-cols-4 md:grid-cols-12 gap-8 md:gap-12">
+      <div class="grid grid-cols-4 md:grid-cols-12 gap-8 md:gap-12" data-reveal-groupe>
         <div class="col-span-4 md:col-span-3">
           <h2 class="section-label text-liaison">Ce qui est inclus</h2>
         </div>
@@ -86,7 +86,7 @@ const autres = services.filter((item) => item.slug !== slug);
           <ul class="mt-12 space-y-0">
             {
               service.included.map((item) => (
-                <li class="border-t border-technique/15 py-5 text-technique/70">{item}</li>
+                <li class="border-t border-white/10 py-5 text-technique/70" data-reveal>{item}</li>
               ))
             }
           </ul>
@@ -95,7 +95,7 @@ const autres = services.filter((item) => item.slug !== slug);
           <ul class="mt-8 space-y-0">
             {
               service.prerequisites.map((item) => (
-                <li class="border-t border-technique/15 py-5 text-technique/70">{item}</li>
+                <li class="border-t border-white/10 py-5 text-technique/70" data-reveal>{item}</li>
               ))
             }
           </ul>
@@ -105,25 +105,25 @@ const autres = services.filter((item) => item.slug !== slug);
   </section>
 
   <!-- Responsabilités -->
-  <section class="bg-technique text-charbon">
+  <section class="surface-sombre">
     <div class="mx-auto max-w-[88rem] px-6 md:px-12 py-24 md:py-32">
-      <div class="grid grid-cols-4 md:grid-cols-12 gap-8 md:gap-12">
+      <div class="grid grid-cols-4 md:grid-cols-12 gap-8 md:gap-12" data-reveal-groupe>
         <div class="col-span-4 md:col-span-3">
-          <h2 class="section-label text-charbon/60">Qui est responsable de quoi</h2>
+          <h2 class="section-label text-technique/50">Qui est responsable de quoi</h2>
         </div>
         <div class="col-span-4 md:col-span-8">
-          <dl>
+          <dl class="space-y-4" data-reveal-groupe>
             {
               service.responsibilities.map((item) => (
-                <div class="border-t border-charbon/15 py-8 last:border-b">
+                <div class="verre p-6 md:p-8" data-reveal data-tilt>
                   <dt class="font-display text-2xl leading-tight">{item.party}</dt>
-                  <dd class="mt-3 max-w-2xl text-charbon/75">{item.scope}</dd>
+                  <dd class="mt-3 max-w-2xl text-technique/70">{item.scope}</dd>
                 </div>
               ))
             }
           </dl>
 
-          <h2 class="section-label text-charbon/60 mt-20">Les autres services gérés</h2>
+          <h2 class="section-label text-technique/50 mt-20">Les autres services gérés</h2>
           <ul class="mt-8 flex flex-wrap gap-x-6 gap-y-3">
             {
               autres.map((item) => (

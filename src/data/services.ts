@@ -1,6 +1,8 @@
 export interface Service {
   /** Segment d'URL. La page vit à /{slug}. */
   readonly slug: string;
+  /** Accent coloré du service. Alimente --accent : bordure, lueur, nœud. */
+  readonly accent: string;
   /** Nom court, utilisé en navigation et en fil d'Ariane. */
   readonly name: string;
   /** H1 de la page de service. Unique dans tout le site. */
@@ -26,6 +28,7 @@ export interface Service {
 export const services: readonly Service[] = [
   {
     slug: 'internet-partage',
+    accent: '#00e5ff',
     name: 'Internet partagé',
     h1: "Une seule entrée internet, distribuée à l'ensemble de l'immeuble.",
     metaTitle: 'Internet partagé pour immeubles multilogements | GoWifi',
@@ -72,6 +75,7 @@ export const services: readonly Service[] = [
   },
   {
     slug: 'surveillance-ip',
+    accent: '#8b5cf6',
     name: 'Surveillance IP',
     h1: 'Des caméras qui servent réellement quand il faut retrouver un événement.',
     metaTitle: 'Surveillance IP pour immeubles multilogements | GoWifi',
@@ -118,6 +122,7 @@ export const services: readonly Service[] = [
   },
   {
     slug: 'interphone',
+    accent: '#f59e0b',
     name: 'Interphone',
     h1: "Contrôler qui entre, sans dépendre d'un système que plus personne ne sait configurer.",
     metaTitle: 'Interphone pour immeubles multilogements | GoWifi',
@@ -164,6 +169,7 @@ export const services: readonly Service[] = [
   },
   {
     slug: 'telephonie-ip',
+    accent: '#3b82f6',
     name: 'Téléphonie IP',
     h1: "Les lignes dont l'immeuble a besoin, sans ligne cuivre à maintenir.",
     metaTitle: 'Téléphonie IP pour immeubles multilogements | GoWifi',
@@ -210,6 +216,7 @@ export const services: readonly Service[] = [
   },
   {
     slug: 'iptv',
+    accent: '#ec4899',
     name: 'IPTV',
     h1: 'La télévision livrée par le même réseau que le reste du bâtiment.',
     metaTitle: 'IPTV pour immeubles multilogements | GoWifi',

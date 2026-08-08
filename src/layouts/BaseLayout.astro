@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import { ClientRouter } from 'astro:transitions';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import { contactInfo } from '../data/navigation';
@@ -7,7 +8,6 @@ import { contactInfo } from '../data/navigation';
 interface Props {
   title: string;
   description: string;
-  /** Chemin de la page, commençant par « / ». Sert au canonical. */
   path: string;
   ogTitle?: string;
   ogDescription?: string;
@@ -27,12 +27,6 @@ const siteUrl = (Astro.site ?? new URL('https://monwifi.pages.dev')).origin;
 const canonical = `${siteUrl}${path === '/' ? '' : path}`;
 const ogImage = `${siteUrl}/og-default.png`;
 
-/**
- * JSON-LD LocalBusiness.
- * Aucun champ fictif : les données non confirmées sont absentes du balisage
- * plutôt que remplies d'une valeur inventée. areaServed, address, priceRange
- * et openingHours réapparaîtront une fois le territoire et les heures fixés.
- */
 const jsonLd: Record<string, unknown> = {
   '@context': 'https://schema.org',
   '@type': 'LocalBusiness',
@@ -49,9 +43,7 @@ const jsonLd: Record<string, unknown> = {
   },
 };
 
-if (contactInfo.courriel) {
-  jsonLd.email = contactInfo.courriel;
-}
+if (contactInfo.courriel) jsonLd.email = contactInfo.courriel;
 ---
 
 <!doctype html>
@@ -65,7 +57,7 @@ if (contactInfo.courriel) {
     <link rel="canonical" href={canonical} />
     {noindex && <meta name="robots" content="noindex, follow" />}
 
-    <meta name="theme-color" content="#111820" />
+    <meta name="theme-color" content="#0b1220" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="icon" href="/favicon.ico" sizes="32x32" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
@@ -87,12 +79,26 @@ if (contactInfo.courriel) {
     <meta name="twitter:image" content={ogImage} />
 
     <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+
+    <!-- Transitions entre les pages. Astro respecte prefers-reduced-motion
+         et retombe sur une navigation classique si l'API n'existe pas. -->
+    <ClientRouter />
   </head>
 
-  <body class="bg-technique text-charbon antialiased">
-    <a class="skip-link bg-liaison text-charbon px-4 py-2 font-semibold" href="#contenu">
-      Aller au contenu principal
-    </a>
+  <body>
+    <a
+      class="skip-link rounded-lg bg-liaison px-4 py-2 font-semibold text-abysse"
+      href="#contenu">Aller au contenu principal</a>
+
+    <!-- Barre de progression de lecture -->
+    <div
+      id="progression"
+      aria-hidden="true"
+      class="fixed top-0 left-0 z-[100] h-[3px] w-full origin-left scale-x-0"
+      style="background: linear-gradient(90deg, #20c997, #00e5ff, #3b82f6)"
+      transition:persist
+    >
+    </div>
 
     <Header />
 

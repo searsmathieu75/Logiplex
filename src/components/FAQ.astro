@@ -4,22 +4,22 @@ import { faq } from '../data/faq';
 
 <!-- La FAQ est rendue ouverte côté serveur. interactions.ts retire .no-js
      puis referme les panneaux : sans JavaScript, tout le texte reste lisible. -->
-<section id="faq" class="bg-technique text-charbon">
+<section id="faq" class="surface-sombre">
   <div class="mx-auto max-w-[88rem] px-6 md:px-12 py-24 md:py-32">
-    <div class="grid grid-cols-4 md:grid-cols-12 gap-8 md:gap-12">
+    <div class="grid grid-cols-4 md:grid-cols-12 gap-8 md:gap-12" data-reveal-groupe>
       <div class="col-span-4 md:col-span-3">
-        <h2 class="section-label text-charbon/60">06 / Questions fréquentes</h2>
+        <h2 class="section-label text-ambre" data-reveal>06 / Questions fréquentes</h2>
       </div>
 
       <div class="col-span-4 md:col-span-8">
-        <p class="font-display text-section">
+        <p class="font-display text-section" data-reveal>
           Ce qu'il faut clarifier avant de confier les services d'un immeuble.
         </p>
 
-        <div class="mt-16">
+        <div class="mt-16 space-y-3" data-reveal-groupe>
           {
             faq.map((entry, index) => (
-              <div class="border-t border-charbon/15 last:border-b">
+              <div class="verre px-6" data-reveal style="--accent:#f59e0b">
                 <h3>
                   <button
                     type="button"
@@ -33,7 +33,7 @@ import { faq } from '../data/faq';
                       {entry.question}
                     </span>
                     <span
-                      class="faq-chevron shrink-0 mt-1 text-liaison text-2xl leading-none transition-transform duration-200"
+                      class="faq-chevron shrink-0 mt-1 text-ambre text-2xl leading-none transition-transform duration-300"
                       aria-hidden="true"
                     >
                       +
@@ -46,7 +46,7 @@ import { faq } from '../data/faq';
                   role="region"
                   aria-labelledby={`faq-trigger-${index}`}
                 >
-                  <p class="pb-6 max-w-2xl text-charbon/75">{entry.answer}</p>
+                  <p class="pb-6 max-w-2xl text-technique/70">{entry.answer}</p>
                 </div>
               </div>
             ))

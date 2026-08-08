@@ -2,34 +2,42 @@
 
 /* ==========================================================================
    SYSTÈME VISUEL GOWIFI
-   Trois couleurs, deux familles typographiques, une échelle de 8 px.
-   Aucun dégradé, aucun glassmorphism, aucune ombre lumineuse.
+   Fonds profonds, cinq accents de service, dégradés et lueurs.
+   Toute animation est désactivée sous prefers-reduced-motion.
    ========================================================================== */
 
 @theme {
-  /* Palette — les seules couleurs du site. Les nuances secondaires
-     s'obtiennent uniquement par opacité de ces trois valeurs. */
-  --color-charbon: #111820;
+  /* Échelle de fonds, du plus profond au plus clair */
+  --color-abysse: #060a15;
+  --color-charbon: #0b1220;
+  --color-ardoise: #131d33;
+  --color-acier: #1e2b47;
   --color-technique: #f2f4f1;
-  --color-liaison: #20c997;
 
-  /* Typographie.
-     Les familles auto-hébergées sont nommées en premier : si les .woff2
-     sont ajoutés dans src/assets/fonts et déclarés en @font-face,
-     ils prennent effet sans modifier une seule classe. */
+  /* Accent de marque */
+  --color-liaison: #20c997;
+  --color-liaison-clair: #5ef0c4;
+
+  /* Accents de service */
+  --color-cyan: #00e5ff;
+  --color-azur: #3b82f6;
+  --color-violet: #8b5cf6;
+  --color-ambre: #f59e0b;
+  --color-magenta: #ec4899;
+
+  /* Typographie */
   --font-display: "Barlow Condensed", "Arial Narrow", "Helvetica Neue Condensed",
     ui-sans-serif, system-ui, sans-serif;
   --font-sans: "Inter", ui-sans-serif, system-ui, "Segoe UI", Roboto, Helvetica,
     Arial, sans-serif;
 
-  /* Échelle typographique fluide pour les titres longs. */
-  --text-display: clamp(2.35rem, 1.1rem + 4.4vw, 4.5rem);
-  --text-display--line-height: 0.95;
-  --text-display--letter-spacing: -0.02em;
+  --text-display: clamp(2.5rem, 1.1rem + 5vw, 5rem);
+  --text-display--line-height: 0.96;
+  --text-display--letter-spacing: -0.025em;
 
-  --text-section: clamp(1.6rem, 0.95rem + 2.5vw, 2.85rem);
+  --text-section: clamp(1.7rem, 1rem + 2.7vw, 3.1rem);
   --text-section--line-height: 1.02;
-  --text-section--letter-spacing: -0.01em;
+  --text-section--letter-spacing: -0.015em;
 }
 
 /* --------------------------------------------------------------------------
@@ -40,139 +48,153 @@
   html {
     scroll-behavior: smooth;
     -webkit-text-size-adjust: 100%;
+    background-color: var(--color-abysse);
   }
 
   body {
-    background-color: var(--color-technique);
-    color: var(--color-charbon);
+    background-color: var(--color-charbon);
+    color: var(--color-technique);
     font-family: var(--font-sans);
-    font-size: 1rem;
     line-height: 1.6;
-    text-rendering: optimizeLegibility;
+    overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
   }
 
-  /* Casse normale : quatre lignes de capitales à la taille du H1 se lisent
-     comme un cri et non comme une phrase. La graisse condensée porte déjà
-     le caractère industriel. Les capitales restent réservées aux libellés
-     techniques (.section-label), où elles signalent une étiquette. */
-  h1,
-  h2,
-  h3 {
+  h1, h2, h3 {
     font-family: var(--font-display);
     font-weight: 700;
     text-wrap: balance;
   }
 
-  p {
-    text-wrap: pretty;
-  }
+  p { text-wrap: pretty; }
 
-  /* Focus visible : vert sur fond sombre, charbon sur fond vert.
-     Le sélecteur d'exception cible les éléments posés sur du vert. */
   :focus-visible {
     outline: 3px solid var(--color-liaison);
     outline-offset: 3px;
+    border-radius: 2px;
   }
 
-  .on-liaison :focus-visible,
-  .bg-liaison:focus-visible {
-    outline-color: var(--color-charbon);
-  }
+  .on-liaison :focus-visible { outline-color: var(--color-abysse); }
 
-  /* Le lien d'évitement n'apparaît qu'au clavier. */
-  .skip-link {
-    position: absolute;
-    left: -9999px;
-    top: 0;
-    z-index: 100;
-  }
+  .skip-link { position: absolute; left: -9999px; top: 0; z-index: 200; }
+  .skip-link:focus { left: 1rem; top: 1rem; }
 
-  .skip-link:focus {
-    left: 1rem;
-    top: 1rem;
-  }
+  ::selection { background-color: var(--color-liaison); color: var(--color-abysse); }
 
-  ::selection {
-    background-color: var(--color-liaison);
-    color: var(--color-charbon);
+  ::-webkit-scrollbar { width: 10px; }
+  ::-webkit-scrollbar-track { background: var(--color-abysse); }
+  ::-webkit-scrollbar-thumb {
+    background: var(--color-acier);
+    border-radius: 5px;
   }
+  ::-webkit-scrollbar-thumb:hover { background: var(--color-liaison); }
 }
 
 /* --------------------------------------------------------------------------
-   Colonne vertébrale
-   Élément signature : un trait vertical qui relie les cinq services et les
-   quatre étapes comme un schéma d'infrastructure de bâtiment.
-   Structurel, jamais animé.
+   Surfaces, dégradés, lueurs
    -------------------------------------------------------------------------- */
 
 @layer components {
-  .spine {
+  /* Dégradé de fond principal, animé lentement */
+  .surface-hero {
     position: relative;
+    background:
+      radial-gradient(120% 90% at 15% 0%, rgba(32, 201, 151, 0.16) 0%, transparent 55%),
+      radial-gradient(90% 80% at 85% 10%, rgba(0, 229, 255, 0.13) 0%, transparent 60%),
+      radial-gradient(100% 100% at 50% 100%, rgba(59, 130, 246, 0.12) 0%, transparent 65%),
+      linear-gradient(180deg, var(--color-abysse) 0%, var(--color-charbon) 100%);
+    background-size: 200% 200%, 200% 200%, 200% 200%, 100% 100%;
+    animation: derive 26s ease-in-out infinite alternate;
   }
 
-  /* Le trait lui-même. Il part du premier nœud et s'arrête au dernier. */
-  .spine::before {
+  .surface-sombre {
+    background: linear-gradient(180deg, var(--color-charbon) 0%, var(--color-abysse) 100%);
+  }
+
+  .surface-profonde {
+    background:
+      radial-gradient(80% 60% at 80% 0%, rgba(139, 92, 246, 0.1) 0%, transparent 60%),
+      linear-gradient(180deg, var(--color-abysse) 0%, var(--color-charbon) 100%);
+  }
+
+  /* Carte en verre dépoli */
+  .verre {
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.055), rgba(255, 255, 255, 0.015));
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid rgba(255, 255, 255, 0.09);
+    border-radius: 14px;
+    transition: border-color 0.35s, transform 0.35s, box-shadow 0.35s;
+  }
+
+  .verre:hover {
+    border-color: color-mix(in srgb, var(--accent, #20c997) 55%, transparent);
+    box-shadow:
+      0 18px 46px -18px rgba(0, 0, 0, 0.75),
+      0 0 34px -12px var(--accent, #20c997);
+  }
+
+  /* Texte en dégradé */
+  .texte-degrade {
+    background: linear-gradient(
+      104deg,
+      var(--color-technique) 0%,
+      var(--color-liaison-clair) 42%,
+      var(--color-cyan) 72%,
+      var(--color-azur) 100%
+    );
+    background-size: 220% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: glisse 9s ease-in-out infinite alternate;
+  }
+
+  /* Bouton principal */
+  .bouton {
+    position: relative;
+    display: inline-block;
+    overflow: hidden;
+    background: linear-gradient(115deg, var(--color-liaison), var(--color-cyan));
+    color: var(--color-abysse);
+    font-weight: 600;
+    border-radius: 10px;
+    box-shadow: 0 10px 34px -12px rgba(32, 201, 151, 0.85);
+    transition: transform 0.28s cubic-bezier(0.34, 1.4, 0.64, 1), box-shadow 0.28s;
+  }
+
+  .bouton:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 18px 48px -12px rgba(32, 201, 151, 0.95);
+  }
+
+  /* Reflet qui traverse le bouton au survol */
+  .bouton::after {
     content: "";
     position: absolute;
-    left: 0;
-    top: 0.75rem;
-    bottom: 0.75rem;
-    width: 1px;
-    background-color: currentColor;
-    opacity: 0.22;
+    inset: 0;
+    background: linear-gradient(110deg, transparent 30%, rgba(255, 255, 255, 0.45), transparent 70%);
+    transform: translateX(-120%);
+    transition: transform 0.75s ease;
   }
 
-  /* Un nœud par entrée : le carré posé sur le trait. */
-  .spine-node {
-    position: relative;
-    padding-left: 2rem;
+  .bouton:hover::after { transform: translateX(120%); }
+
+  /* Bouton secondaire, contour lumineux */
+  .bouton-fantome {
+    display: inline-block;
+    border: 1px solid rgba(242, 244, 241, 0.28);
+    border-radius: 10px;
+    transition: border-color 0.3s, background-color 0.3s, transform 0.3s;
   }
 
-  .spine-node::before {
-    content: "";
-    position: absolute;
-    left: -3px;
-    top: 0.7rem;
-    width: 7px;
-    height: 7px;
-    background-color: var(--color-liaison);
+  .bouton-fantome:hover {
+    border-color: var(--color-liaison);
+    background-color: rgba(32, 201, 151, 0.09);
+    transform: translateY(-2px);
   }
 
-  /* Dorsale du hero : le trait court sur toute la hauteur du bloc,
-     les nœuds sont posés aux points d'accroche (libellé, titre, action). */
-  .spine-hero {
-    position: relative;
-    padding-left: 2rem;
-  }
-
-  .spine-hero::before {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    width: 1px;
-    background-color: currentColor;
-    opacity: 0.22;
-  }
-
-  .spine-tap {
-    position: relative;
-  }
-
-  .spine-tap::before {
-    content: "";
-    position: absolute;
-    left: -2rem;
-    top: 0.55em;
-    width: 7px;
-    height: 7px;
-    margin-left: -3px;
-    background-color: var(--color-liaison);
-  }
-
-  /* Libellé technique de section : 01 / SERVICES GÉRÉS */
+  /* Libellé technique */
   .section-label {
     font-family: var(--font-sans);
     font-size: 0.75rem;
@@ -182,51 +204,155 @@
     line-height: 1.4;
   }
 
-  /* Règle horizontale discrète, réutilisée entre les blocs. */
+  /* ------------------------------------------------------------------
+     Colonne vertébrale — se trace au défilement
+     ------------------------------------------------------------------ */
+
+  .spine { position: relative; }
+
+  .spine::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.75rem;
+    bottom: 0.75rem;
+    width: 2px;
+    background: linear-gradient(
+      180deg,
+      var(--color-liaison) 0%,
+      var(--color-cyan) 50%,
+      var(--color-azur) 100%
+    );
+    transform-origin: top;
+    transform: scaleY(var(--trace, 1));
+    transition: transform 1.1s cubic-bezier(0.22, 1, 0.36, 1);
+    opacity: 0.55;
+  }
+
+  .spine-node { position: relative; padding-left: 2.25rem; }
+
+  .spine-node::before {
+    content: "";
+    position: absolute;
+    left: -4px;
+    top: 0.6rem;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--accent, var(--color-liaison));
+    box-shadow: 0 0 0 4px rgba(11, 18, 32, 1), 0 0 18px 2px var(--accent, var(--color-liaison));
+    transition: transform 0.35s cubic-bezier(0.34, 1.5, 0.64, 1);
+  }
+
+  .spine-node:hover::before { transform: scale(1.45); }
+
+  .spine-hero { position: relative; padding-left: 2.25rem; }
+
+  .spine-hero::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: linear-gradient(180deg, var(--color-liaison), var(--color-cyan), transparent);
+    opacity: 0.6;
+  }
+
+  .spine-tap { position: relative; }
+
+  .spine-tap::before {
+    content: "";
+    position: absolute;
+    left: -2.25rem;
+    top: 0.5em;
+    margin-left: -4px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--color-liaison);
+    box-shadow: 0 0 18px 3px rgba(32, 201, 151, 0.75);
+  }
+
   .rule {
     border: 0;
-    border-top: 1px solid currentColor;
-    opacity: 0.16;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(242, 244, 241, 0.25), transparent);
   }
 }
+
+/* --------------------------------------------------------------------------
+   Révélations au défilement
+   -------------------------------------------------------------------------- */
+
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity 0.85s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.85s cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: var(--delai, 0ms);
+  will-change: opacity, transform;
+}
+
+[data-reveal].vu {
+  opacity: 1;
+  transform: none;
+}
+
+/* Sans JavaScript, rien ne doit rester invisible. */
+.no-js [data-reveal] { opacity: 1; transform: none; }
+.no-js [data-faq-panel] { display: block !important; }
+.no-js [data-faq-trigger] > .faq-chevron { display: none; }
+.no-js #hero-canvas { display: none; }
+
+/* --------------------------------------------------------------------------
+   Animations
+   -------------------------------------------------------------------------- */
+
+@keyframes derive {
+  0%   { background-position: 0% 0%, 100% 0%, 50% 100%, 0 0; }
+  100% { background-position: 60% 40%, 40% 60%, 20% 60%, 0 0; }
+}
+
+@keyframes glisse {
+  0%   { background-position: 0% center; }
+  100% { background-position: 100% center; }
+}
+
+@keyframes pulsation {
+  0%, 100% { opacity: 0.5; transform: scale(1); }
+  50%      { opacity: 1;   transform: scale(1.18); }
+}
+
+.pulse { animation: pulsation 2.6s ease-in-out infinite; }
 
 /* --------------------------------------------------------------------------
    Accessibilité
    -------------------------------------------------------------------------- */
 
-/* Masque visuellement sans retirer du flux accessible. */
 .sr-only-field {
   position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
   overflow: hidden;
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
   border: 0;
 }
 
+/* Une seule règle coupe tout : dégradés animés, révélations, canvas,
+   parallaxe et transitions de page. Le contenu reste intégralement visible. */
 @media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
+  html { scroll-behavior: auto; }
 
-  *,
-  *::before,
-  *::after {
+  *, *::before, *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
-}
 
-/* Sans JavaScript, la FAQ reste entièrement ouverte et lisible.
-   Le script retire .no-js et active l'accordéon. */
-.no-js [data-faq-panel] {
-  display: block !important;
-}
-
-.no-js [data-faq-trigger] > .faq-chevron {
-  display: none;
+  [data-reveal] { opacity: 1 !important; transform: none !important; }
+  .spine::before { transform: none !important; }
+  #hero-canvas { display: none; }
 }

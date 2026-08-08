@@ -52,14 +52,14 @@ const sections = [
   path="/confidentialite"
   noindex={true}
 >
-  <section class="bg-charbon text-technique">
+  <section class="surface-profonde">
     <div class="mx-auto max-w-[88rem] px-6 md:px-12 pt-20 pb-20 md:pt-28 md:pb-24">
-      <div class="grid grid-cols-4 md:grid-cols-12 gap-8 md:gap-12">
+      <div class="grid grid-cols-4 md:grid-cols-12 gap-8 md:gap-12" data-reveal-groupe>
         <div class="col-span-4 md:col-span-3">
           <p class="section-label text-liaison">Confidentialité</p>
         </div>
         <div class="col-span-4 md:col-span-8">
-          <h1 class="font-display text-section">
+          <h1 class="font-display text-section texte-degrade" data-reveal>
             Ce que nous recueillons et ce que nous en faisons.
           </h1>
           <p class="mt-8 max-w-2xl text-technique/70">
@@ -72,25 +72,25 @@ const sections = [
     </div>
   </section>
 
-  <section class="bg-technique text-charbon">
+  <section class="surface-sombre">
     <div class="mx-auto max-w-[88rem] px-6 md:px-12 py-20 md:py-28">
-      <div class="grid grid-cols-4 md:grid-cols-12 gap-8 md:gap-12">
+      <div class="grid grid-cols-4 md:grid-cols-12 gap-8 md:gap-12" data-reveal-groupe>
         <div class="col-span-4 md:col-span-3">
-          <h2 class="section-label text-charbon/60">Politique</h2>
+          <h2 class="section-label text-technique/50">Politique</h2>
         </div>
         <div class="col-span-4 md:col-span-8">
-          <dl>
+          <dl class="space-y-3" data-reveal-groupe>
             {
               sections.map((section) => (
-                <div class="border-t border-charbon/15 py-8 last:border-b">
+                <div class="verre p-6" data-reveal>
                   <dt class="font-display text-2xl leading-tight">{section.titre}</dt>
-                  <dd class="mt-3 max-w-2xl text-charbon/75">{section.contenu}</dd>
+                  <dd class="mt-3 max-w-2xl text-technique/70">{section.contenu}</dd>
                 </div>
               ))
             }
           </dl>
 
-          <p class="mt-12 text-charbon/75">
+          <p class="mt-12 text-technique/70">
             Pour toute question : {contactInfo.personne},
             <a href={contactInfo.telephoneHref} class="underline underline-offset-4">
               {contactInfo.telephone}

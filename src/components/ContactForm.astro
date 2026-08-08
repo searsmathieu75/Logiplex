@@ -18,22 +18,22 @@ const champs = [
 ] as const;
 
 const champClass =
-  'mt-2 w-full bg-transparent border border-technique/25 px-4 py-3 text-technique placeholder:text-technique/35 focus:border-liaison outline-none';
+  'mt-2 w-full rounded-lg border border-white/12 bg-white/4 px-4 py-3 text-technique outline-none transition-colors placeholder:text-technique/30 focus:border-liaison focus:bg-white/7';
 ---
 
-<section id="contact-form" class="bg-charbon text-technique">
-  <div class="mx-auto max-w-[88rem] px-6 md:px-12 py-24 md:py-32">
-    <div class="grid grid-cols-4 md:grid-cols-12 gap-8 md:gap-12">
+<section id="contact-form" class="surface-hero relative overflow-hidden">
+  <div class="relative mx-auto max-w-[88rem] px-6 md:px-12 py-24 md:py-32">
+    <div class="grid grid-cols-4 md:grid-cols-12 gap-8 md:gap-12" data-reveal-groupe>
       <div class="col-span-4 md:col-span-3">
-        <h2 class="section-label text-liaison">07 / Parlons du bâtiment</h2>
+        <h2 class="section-label text-liaison" data-reveal>07 / Parlons du bâtiment</h2>
       </div>
 
       <div class="col-span-4 md:col-span-8">
         {
           showHeading && (
             <>
-              <p class="font-display text-section">
-                Votre immeuble a-t-il besoin d'un opérateur unique?
+              <p class="font-display text-section" data-reveal>
+                Votre immeuble a-t-il besoin <span class="texte-degrade">d'un opérateur unique?</span>
               </p>
               <p class="mt-8 max-w-2xl text-lg text-technique/75">
                 Réservez un appel de qualification. Nous vérifierons la taille du bâtiment,
@@ -55,7 +55,7 @@ const champClass =
         <form
           method="post"
           action={configure ? endpoint : undefined}
-          class="mt-12 grid grid-cols-1 md:grid-cols-2 gap-6"
+          class="verre mt-12 grid grid-cols-1 gap-6 p-6 md:grid-cols-2 md:p-8"
         >
           {
             champs.map((champ) => (
@@ -108,7 +108,7 @@ const champClass =
               class:list={[
                 'px-8 py-4 font-semibold transition-colors',
                 configure
-                  ? 'bg-liaison on-liaison text-charbon hover:bg-liaison/85'
+                  ? 'bouton on-liaison'
                   : 'bg-technique/15 text-technique/40 cursor-not-allowed',
               ]}
             >

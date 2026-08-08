@@ -18,33 +18,39 @@ const engagements: readonly Engagement[] = [
 ];
 ---
 
-<section id="engagements" class="bg-charbon text-technique">
-  <div class="mx-auto max-w-[88rem] px-6 md:px-12 py-24 md:py-32">
-    <div class="grid grid-cols-4 md:grid-cols-12 gap-8 md:gap-12">
+<section id="engagements" class="surface-profonde relative overflow-hidden">
+  <div
+    aria-hidden="true"
+    data-parallaxe="-0.05"
+    class="pointer-events-none absolute -left-20 bottom-0 h-[24rem] w-[24rem] rounded-full bg-cyan/10 blur-[120px]">
+  </div>
+
+  <div class="relative mx-auto max-w-[88rem] px-6 md:px-12 py-24 md:py-32">
+    <div class="grid grid-cols-4 md:grid-cols-12 gap-8 md:gap-12" data-reveal-groupe>
       <div class="col-span-4 md:col-span-3">
-        <h2 class="section-label text-liaison">05 / Engagements</h2>
+        <h2 class="section-label text-violet" data-reveal>05 / Engagements</h2>
       </div>
 
       <div class="col-span-4 md:col-span-8">
-        <p class="font-display text-section">
-          Des engagements que vous pouvez vérifier avant de signer.
+        <p class="font-display text-section" data-reveal>
+          Des engagements que vous pouvez <span class="texte-degrade">vérifier avant de signer.</span>
         </p>
-        <p class="mt-8 max-w-2xl text-lg text-technique/75">
+        <p class="mt-8 max-w-2xl text-lg text-technique/70" data-reveal>
           Les valeurs ci-dessous doivent apparaître au contrat ou au devis.
           Aucune promesse générale ne remplacera ces données.
         </p>
 
-        <dl class="mt-16 grid grid-cols-1 md:grid-cols-2 gap-x-12">
+        <dl class="mt-16 grid grid-cols-1 md:grid-cols-2 gap-4" data-reveal-groupe>
           {
             engagements.map((item) => (
-              <div class="border-t border-technique/15 py-6">
+              <div class="verre p-5" data-reveal data-tilt style="--accent:#8b5cf6">
                 <dt class="section-label text-technique/50">{item.libelle}</dt>
                 <dd
                   class:list={[
                     'mt-2',
                     item.aConfirmer
                       ? 'text-technique/45 text-sm'
-                      : 'font-display text-2xl md:text-3xl leading-none',
+                      : 'font-display text-2xl md:text-3xl leading-none text-liaison',
                   ]}
                 >
                   {item.valeur}
