@@ -1,0 +1,127 @@
+---
+interface Props {
+  /** Permet de masquer l'en-tête quand le formulaire est réutilisé sur /contact. */
+  showHeading?: boolean;
+}
+
+const { showHeading = true } = Astro.props;
+
+const endpoint = import.meta.env.PUBLIC_CONTACT_FORM_ENDPOINT ?? '';
+const configure = endpoint.length > 0;
+
+const champs = [
+  { id: 'nom', label: 'Nom', type: 'text', placeholder: 'Votre nom', autocomplete: 'name', required: true },
+  { id: 'courriel', label: 'Courriel', type: 'email', placeholder: 'nom@entreprise.ca', autocomplete: 'email', required: true },
+  { id: 'telephone', label: 'Téléphone', type: 'tel', placeholder: '514 555-0000', autocomplete: 'tel', required: false },
+  { id: 'portes', label: 'Nombre de portes', type: 'number', placeholder: 'Ex. 24', autocomplete: 'off', required: false },
+  { id: 'ville', label: 'Ville', type: 'text', placeholder: "Ville de l'immeuble", autocomplete: 'address-level2', required: false },
+] as const;
+
+const champClass =
+  'mt-2 w-full bg-transparent border border-technique/25 px-4 py-3 text-technique placeholder:text-technique/35 focus:border-liaison outline-none';
+---
+
+<section id="contact-form" class="bg-charbon text-technique">
+  <div class="mx-auto max-w-[88rem] px-6 md:px-12 py-24 md:py-32">
+    <div class="grid grid-cols-4 md:grid-cols-12 gap-8 md:gap-12">
+      <div class="col-span-4 md:col-span-3">
+        <h2 class="section-label text-liaison">07 / Parlons du bâtiment</h2>
+      </div>
+
+      <div class="col-span-4 md:col-span-8">
+        {
+          showHeading && (
+            <>
+              <p class="font-display text-section">
+                Votre immeuble a-t-il besoin d'un opérateur unique?
+              </p>
+              <p class="mt-8 max-w-2xl text-lg text-technique/75">
+                Réservez un appel de qualification. Nous vérifierons la taille du bâtiment,
+                les services visés et les contraintes existantes avant de proposer la
+                prochaine étape.
+              </p>
+            </>
+          )
+        }
+
+        {
+          !configure && (
+            <p class="mt-8 border border-liaison/50 px-4 py-3 text-sm text-liaison">
+              Formulaire non configuré : ajoutez <code>PUBLIC_CONTACT_FORM_ENDPOINT</code>.
+            </p>
+          )
+        }
+
+        <form
+          method="post"
+          action={configure ? endpoint : undefined}
+          class="mt-12 grid grid-cols-1 md:grid-cols-2 gap-6"
+        >
+          {
+            champs.map((champ) => (
+              <div class="md:col-span-1">
+                <label for={champ.id} class="section-label text-technique/60">
+                  {champ.label}
+                  {!champ.required && <span class="normal-case tracking-normal"> (facultatif)</span>}
+                </label>
+                <input
+                  id={champ.id}
+                  name={champ.id}
+                  type={champ.type}
+                  placeholder={champ.placeholder}
+                  autocomplete={champ.autocomplete}
+                  required={champ.required}
+                  min={champ.type === 'number' ? '1' : undefined}
+                  class={champClass}
+                />
+              </div>
+            ))
+          }
+
+          <div class="md:col-span-2">
+            <label for="message" class="section-label text-technique/60">Message</label>
+            <textarea
+              id="message"
+              name="message"
+              rows="5"
+              placeholder="Quels services souhaitez-vous regrouper?"
+              class={champClass}></textarea>
+          </div>
+
+          <!-- Honeypot : masqué visuellement, retiré de la navigation clavier
+               et de l'arbre d'accessibilité, mais soumis par les robots. -->
+          <div class="sr-only-field" aria-hidden="true">
+            <label for="company_website">Laissez ce champ vide</label>
+            <input
+              id="company_website"
+              name="company_website"
+              type="text"
+              tabindex="-1"
+              autocomplete="off"
+            />
+          </div>
+
+          <div class="md:col-span-2 mt-2">
+            <button
+              type="submit"
+              disabled={!configure}
+              class:list={[
+                'px-8 py-4 font-semibold transition-colors',
+                configure
+                  ? 'bg-liaison on-liaison text-charbon hover:bg-liaison/85'
+                  : 'bg-technique/15 text-technique/40 cursor-not-allowed',
+              ]}
+            >
+              Demander un appel
+            </button>
+          </div>
+        </form>
+
+        <p class="mt-8 max-w-xl text-sm text-technique/55">
+          Vos renseignements servent uniquement à répondre à votre demande.
+          Consultez notre <a href="/confidentialite" class="text-liaison underline underline-offset-4">politique de confidentialité</a>.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>

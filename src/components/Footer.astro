@@ -1,0 +1,78 @@
+---
+import { footerNav, contactInfo } from '../data/navigation';
+import { services } from '../data/services';
+
+const annee = new Date().getFullYear();
+---
+
+<footer class="bg-charbon text-technique">
+  <div class="mx-auto max-w-[88rem] px-6 md:px-12 py-16 md:py-24">
+    <div class="grid grid-cols-4 md:grid-cols-12 gap-8 md:gap-12">
+      <div class="col-span-4 md:col-span-5">
+        <p class="font-display text-3xl md:text-4xl leading-none">GoWifi</p>
+        <p class="mt-4 text-technique/70 max-w-sm">
+          Services gérés pour immeubles multilogements.
+        </p>
+      </div>
+
+      <div class="col-span-4 md:col-span-3">
+        <h2 class="section-label text-liaison">Coordonnées</h2>
+        <ul class="mt-6 space-y-2 text-technique/80">
+          <li>Personne-ressource : {contactInfo.personne}</li>
+          <li>
+            <a href={contactInfo.telephoneHref} class="hover:text-liaison transition-colors">
+              {contactInfo.telephone}
+            </a>
+          </li>
+          <li>
+            {
+              contactInfo.courriel ? (
+                <a href={`mailto:${contactInfo.courriel}`} class="hover:text-liaison transition-colors">
+                  {contactInfo.courriel}
+                </a>
+              ) : (
+                <span class="text-technique/50">Courriel : [À CONFIRMER]</span>
+              )
+            }
+          </li>
+        </ul>
+      </div>
+
+      <div class="col-span-2 md:col-span-2">
+        <h2 class="section-label text-liaison">Services</h2>
+        <ul class="mt-6 space-y-2">
+          {
+            services.map((service) => (
+              <li>
+                <a href={`/${service.slug}`} class="text-technique/80 hover:text-liaison transition-colors">
+                  {service.name}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+
+      <div class="col-span-2 md:col-span-2">
+        <h2 class="section-label text-liaison">Navigation</h2>
+        <ul class="mt-6 space-y-2">
+          {
+            footerNav.map((link) => (
+              <li>
+                <a href={link.href} class="text-technique/80 hover:text-liaison transition-colors">
+                  {link.label}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </div>
+
+    <hr class="rule mt-16" />
+
+    <p class="mt-8 text-sm text-technique/50">
+      © {annee} GoWifi. Tous droits réservés.
+    </p>
+  </div>
+</footer>

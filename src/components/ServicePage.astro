@@ -1,0 +1,147 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ContactForm from './ContactForm.astro';
+import { getService, services } from '../data/services';
+
+interface Props {
+  slug: string;
+}
+
+const { slug } = Astro.props;
+const service = getService(slug);
+const autres = services.filter((item) => item.slug !== slug);
+---
+
+<BaseLayout
+  title={service.metaTitle}
+  description={service.metaDescription}
+  path={`/${service.slug}`}
+  ogTitle={service.h1}
+  ogDescription={service.cardBlurb}
+>
+  <!-- En-tête de service -->
+  <section class="bg-charbon text-technique">
+    <div class="mx-auto max-w-[88rem] px-6 md:px-12 pt-20 pb-24 md:pt-28 md:pb-32">
+      <nav aria-label="Fil d'Ariane" class="mb-12">
+        <ol class="flex flex-wrap items-center gap-2 text-sm text-technique/50">
+          <li><a href="/" class="hover:text-liaison transition-colors">Accueil</a></li>
+          <li aria-hidden="true">/</li>
+          <li><a href="/#services" class="hover:text-liaison transition-colors">Services</a></li>
+          <li aria-hidden="true">/</li>
+          <li aria-current="page" class="text-technique/80">{service.name}</li>
+        </ol>
+      </nav>
+
+      <div class="grid grid-cols-4 md:grid-cols-12 gap-8 md:gap-12">
+        <div class="col-span-4 md:col-span-3">
+          <p class="section-label text-liaison">{service.name}</p>
+        </div>
+        <div class="col-span-4 md:col-span-8">
+          <h1 class="font-display text-section">{service.h1}</h1>
+          <p class="mt-8 max-w-2xl text-lg text-technique/75">{service.definition}</p>
+          <a
+            href="/contact"
+            class="mt-10 inline-block bg-liaison on-liaison text-charbon px-8 py-4 font-semibold hover:bg-liaison/85 transition-colors"
+          >
+            Réserver un appel de qualification
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Situations -->
+  <section class="bg-technique text-charbon">
+    <div class="mx-auto max-w-[88rem] px-6 md:px-12 py-24 md:py-32">
+      <div class="grid grid-cols-4 md:grid-cols-12 gap-8 md:gap-12">
+        <div class="col-span-4 md:col-span-3">
+          <h2 class="section-label text-charbon/60">Quand ce service devient pertinent</h2>
+        </div>
+        <div class="col-span-4 md:col-span-8">
+          <ul class="spine space-y-8">
+            {
+              service.situations.map((situation) => (
+                <li class="spine-node max-w-2xl text-lg">{situation}</li>
+              ))
+            }
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Inclus et prérequis -->
+  <section class="bg-charbon text-technique">
+    <div class="mx-auto max-w-[88rem] px-6 md:px-12 py-24 md:py-32">
+      <div class="grid grid-cols-4 md:grid-cols-12 gap-8 md:gap-12">
+        <div class="col-span-4 md:col-span-3">
+          <h2 class="section-label text-liaison">Ce qui est inclus</h2>
+        </div>
+        <div class="col-span-4 md:col-span-8">
+          <p class="max-w-2xl text-technique/75">
+            Chaque élément ci-dessous doit être chiffré au devis avant signature.
+            Les valeurs marquées « à confirmer » ne sont pas encore publiées : elles
+            seront fixées lors de l'audit du bâtiment.
+          </p>
+          <ul class="mt-12 space-y-0">
+            {
+              service.included.map((item) => (
+                <li class="border-t border-technique/15 py-5 text-technique/70">{item}</li>
+              ))
+            }
+          </ul>
+
+          <h2 class="section-label text-liaison mt-20">Prérequis techniques du bâtiment</h2>
+          <ul class="mt-8 space-y-0">
+            {
+              service.prerequisites.map((item) => (
+                <li class="border-t border-technique/15 py-5 text-technique/70">{item}</li>
+              ))
+            }
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Responsabilités -->
+  <section class="bg-technique text-charbon">
+    <div class="mx-auto max-w-[88rem] px-6 md:px-12 py-24 md:py-32">
+      <div class="grid grid-cols-4 md:grid-cols-12 gap-8 md:gap-12">
+        <div class="col-span-4 md:col-span-3">
+          <h2 class="section-label text-charbon/60">Qui est responsable de quoi</h2>
+        </div>
+        <div class="col-span-4 md:col-span-8">
+          <dl>
+            {
+              service.responsibilities.map((item) => (
+                <div class="border-t border-charbon/15 py-8 last:border-b">
+                  <dt class="font-display text-2xl leading-tight">{item.party}</dt>
+                  <dd class="mt-3 max-w-2xl text-charbon/75">{item.scope}</dd>
+                </div>
+              ))
+            }
+          </dl>
+
+          <h2 class="section-label text-charbon/60 mt-20">Les autres services gérés</h2>
+          <ul class="mt-8 flex flex-wrap gap-x-6 gap-y-3">
+            {
+              autres.map((item) => (
+                <li>
+                  <a
+                    href={`/${item.slug}`}
+                    class="underline underline-offset-4 hover:text-liaison transition-colors"
+                  >
+                    {item.name}
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <ContactForm />
+</BaseLayout>

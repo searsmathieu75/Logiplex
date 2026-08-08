@@ -1,0 +1,59 @@
+---
+interface Engagement {
+  readonly libelle: string;
+  readonly valeur: string;
+  /** true quand la valeur reste à confirmer avant publication. */
+  readonly aConfirmer: boolean;
+}
+
+const engagements: readonly Engagement[] = [
+  { libelle: 'Immeubles visés', valeur: '6 à 200 portes', aConfirmer: false },
+  { libelle: 'Disponibilité du service', valeur: '[À CONFIRMER : engagement SLA mesurable]', aConfirmer: true },
+  { libelle: "Prise en charge d'une panne", valeur: '[À CONFIRMER : heures de support et délai de réponse]', aConfirmer: true },
+  { libelle: 'Capacité et débits', valeur: '[À CONFIRMER : méthode de dimensionnement et valeurs par offre]', aConfirmer: true },
+  { libelle: 'Conservation des images', valeur: "[À CONFIRMER : durée, emplacement et méthode d'accès]", aConfirmer: true },
+  { libelle: 'Territoire desservi', valeur: '[À CONFIRMER : villes et régions]', aConfirmer: true },
+  { libelle: 'Propriété du matériel', valeur: '[À CONFIRMER : achat, location ou matériel inclus au service]', aConfirmer: true },
+  { libelle: 'Documentation remise', valeur: '[À CONFIRMER : plans, inventaire, accès et procédures remis au client]', aConfirmer: true },
+];
+---
+
+<section id="engagements" class="bg-charbon text-technique">
+  <div class="mx-auto max-w-[88rem] px-6 md:px-12 py-24 md:py-32">
+    <div class="grid grid-cols-4 md:grid-cols-12 gap-8 md:gap-12">
+      <div class="col-span-4 md:col-span-3">
+        <h2 class="section-label text-liaison">05 / Engagements</h2>
+      </div>
+
+      <div class="col-span-4 md:col-span-8">
+        <p class="font-display text-section">
+          Des engagements que vous pouvez vérifier avant de signer.
+        </p>
+        <p class="mt-8 max-w-2xl text-lg text-technique/75">
+          Les valeurs ci-dessous doivent apparaître au contrat ou au devis.
+          Aucune promesse générale ne remplacera ces données.
+        </p>
+
+        <dl class="mt-16 grid grid-cols-1 md:grid-cols-2 gap-x-12">
+          {
+            engagements.map((item) => (
+              <div class="border-t border-technique/15 py-6">
+                <dt class="section-label text-technique/50">{item.libelle}</dt>
+                <dd
+                  class:list={[
+                    'mt-2',
+                    item.aConfirmer
+                      ? 'text-technique/45 text-sm'
+                      : 'font-display text-2xl md:text-3xl leading-none',
+                  ]}
+                >
+                  {item.valeur}
+                </dd>
+              </div>
+            ))
+          }
+        </dl>
+      </div>
+    </div>
+  </div>
+</section>

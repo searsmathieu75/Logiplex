@@ -1,0 +1,196 @@
+@import "tailwindcss";
+
+/* ==========================================================================
+   SYSTÈME VISUEL GOWIFI
+   Trois couleurs, deux familles typographiques, une échelle de 8 px.
+   Aucun dégradé, aucun glassmorphism, aucune ombre lumineuse.
+   ========================================================================== */
+
+@theme {
+  /* Palette — les seules couleurs du site. Les nuances secondaires
+     s'obtiennent uniquement par opacité de ces trois valeurs. */
+  --color-charbon: #111820;
+  --color-technique: #f2f4f1;
+  --color-liaison: #20c997;
+
+  /* Typographie.
+     Les familles auto-hébergées sont nommées en premier : si les .woff2
+     sont ajoutés dans src/assets/fonts et déclarés en @font-face,
+     ils prennent effet sans modifier une seule classe. */
+  --font-display: "Barlow Condensed", "Arial Narrow", "Helvetica Neue Condensed",
+    ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Inter", ui-sans-serif, system-ui, "Segoe UI", Roboto, Helvetica,
+    Arial, sans-serif;
+
+  /* Échelle typographique fluide pour les titres longs. */
+  --text-display: clamp(2.5rem, 1.2rem + 5.6vw, 5.5rem);
+  --text-display--line-height: 0.95;
+  --text-display--letter-spacing: -0.02em;
+
+  --text-section: clamp(1.75rem, 1rem + 3vw, 3.25rem);
+  --text-section--line-height: 1.02;
+  --text-section--letter-spacing: -0.01em;
+}
+
+/* --------------------------------------------------------------------------
+   Base
+   -------------------------------------------------------------------------- */
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--color-technique);
+    color: var(--color-charbon);
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    line-height: 1.6;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    text-transform: uppercase;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  /* Focus visible : vert sur fond sombre, charbon sur fond vert.
+     Le sélecteur d'exception cible les éléments posés sur du vert. */
+  :focus-visible {
+    outline: 3px solid var(--color-liaison);
+    outline-offset: 3px;
+  }
+
+  .on-liaison :focus-visible,
+  .bg-liaison:focus-visible {
+    outline-color: var(--color-charbon);
+  }
+
+  /* Le lien d'évitement n'apparaît qu'au clavier. */
+  .skip-link {
+    position: absolute;
+    left: -9999px;
+    top: 0;
+    z-index: 100;
+  }
+
+  .skip-link:focus {
+    left: 1rem;
+    top: 1rem;
+  }
+
+  ::selection {
+    background-color: var(--color-liaison);
+    color: var(--color-charbon);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Colonne vertébrale
+   Élément signature : un trait vertical qui relie les cinq services et les
+   quatre étapes comme un schéma d'infrastructure de bâtiment.
+   Structurel, jamais animé.
+   -------------------------------------------------------------------------- */
+
+@layer components {
+  .spine {
+    position: relative;
+  }
+
+  /* Le trait lui-même. Il part du premier nœud et s'arrête au dernier. */
+  .spine::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.75rem;
+    bottom: 0.75rem;
+    width: 1px;
+    background-color: currentColor;
+    opacity: 0.22;
+  }
+
+  /* Un nœud par entrée : le carré posé sur le trait. */
+  .spine-node {
+    position: relative;
+    padding-left: 2rem;
+  }
+
+  .spine-node::before {
+    content: "";
+    position: absolute;
+    left: -3px;
+    top: 0.7rem;
+    width: 7px;
+    height: 7px;
+    background-color: var(--color-liaison);
+  }
+
+  /* Libellé technique de section : 01 / SERVICES GÉRÉS */
+  .section-label {
+    font-family: var(--font-sans);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    line-height: 1.4;
+  }
+
+  /* Règle horizontale discrète, réutilisée entre les blocs. */
+  .rule {
+    border: 0;
+    border-top: 1px solid currentColor;
+    opacity: 0.16;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Accessibilité
+   -------------------------------------------------------------------------- */
+
+/* Masque visuellement sans retirer du flux accessible. */
+.sr-only-field {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Sans JavaScript, la FAQ reste entièrement ouverte et lisible.
+   Le script retire .no-js et active l'accordéon. */
+.no-js [data-faq-panel] {
+  display: block !important;
+}
+
+.no-js [data-faq-trigger] > .faq-chevron {
+  display: none;
+}

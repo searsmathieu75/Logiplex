@@ -1,0 +1,52 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { services } from '../data/services';
+---
+
+<BaseLayout
+  title="Page introuvable | GoWifi"
+  description="Cette adresse ne correspond à aucune page du site GoWifi."
+  path="/404"
+  noindex={true}
+>
+  <section class="bg-charbon text-technique">
+    <div class="mx-auto max-w-[88rem] px-6 md:px-12 py-32 md:py-48">
+      <div class="grid grid-cols-4 md:grid-cols-12 gap-8 md:gap-12">
+        <div class="col-span-4 md:col-span-3">
+          <p class="section-label text-liaison">Erreur 404</p>
+        </div>
+        <div class="col-span-4 md:col-span-8">
+          <h1 class="font-display text-section">Cette adresse ne mène nulle part.</h1>
+          <p class="mt-8 max-w-xl text-lg text-technique/75">
+            La page a été déplacée ou n'a jamais existé. Voici les destinations utiles.
+          </p>
+
+          <ul class="spine mt-12 space-y-4">
+            <li class="spine-node">
+              <a href="/" class="text-lg underline underline-offset-4 hover:text-liaison transition-colors">
+                Accueil
+              </a>
+            </li>
+            {
+              services.map((service) => (
+                <li class="spine-node">
+                  <a
+                    href={`/${service.slug}`}
+                    class="text-lg underline underline-offset-4 hover:text-liaison transition-colors"
+                  >
+                    {service.name}
+                  </a>
+                </li>
+              ))
+            }
+            <li class="spine-node">
+              <a href="/contact" class="text-lg underline underline-offset-4 hover:text-liaison transition-colors">
+                Réserver un appel de qualification
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

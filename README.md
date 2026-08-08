@@ -1,80 +1,88 @@
-# Plexio — Site web
+# GoWifi — site web
 
-Site web complet de Plexio, entreprise québécoise de solutions WiFi/internet
-clé en main pour immeubles multilogements.
+Site statique de GoWifi, services gérés pour immeubles multilogements au Québec :
+internet partagé, surveillance IP, interphone, téléphonie IP et IPTV.
 
-## Lancer le site en local
+Astro 5 · TypeScript strict · Tailwind 4 · sortie statique · déploiement Cloudflare Pages.
 
-### Option A — Python (recommandé, aucune dépendance)
-
-Ouvrez un terminal dans le répertoire `/home/pi/plexio` et exécutez :
-
-```bash
-python3 -m http.server 8080
-```
-
-Ensuite ouvrez votre navigateur à l'adresse :
-
-**http://localhost:8080/**
-
-### Option B — Node.js (si disponible)
-
-```bash
-npx serve . -p 8080
-```
-
-Adresse : **http://localhost:8080/**
-
-### Option C — Adresse réseau local (accès depuis un autre appareil)
-
-```bash
-python3 -m http.server 8080 --bind 0.0.0.0
-```
-
-Puis depuis n'importe quel appareil sur le même réseau Wi-Fi :
-
-**http://<IP_DU_PI>:8080/**
-
-Pour trouver l'IP du Pi :
-
-```bash
-hostname -I | awk '{print $1}'
-```
+Le plan de construction, les écarts assumés et la liste des informations manquantes
+sont dans [`PLAN.md`](./PLAN.md).
 
 ---
 
-## Structure des fichiers
+## Développement local
 
-```
-plexio/
-├── index.html          — Page principale (toutes les sections)
-├── css/
-│   └── style.css       — Feuille de styles complète
-├── js/
-│   └── main.js         — Animations, bilingue, interactions
-├── AMELIORATION.md     — Journal d'auto-critique et d'itérations
-└── README.md           — Ce fichier
+Node.js 20.3 ou plus récent est requis.
+
+```bash
+npm install
+npm run dev      # http://localhost:4321
 ```
 
----
+Autres commandes :
 
-## Fonctionnalités
+```bash
+npm run build    # génère dist/
+npm run preview  # sert dist/ localement
+npm run check    # vérification TypeScript et Astro
+```
 
-- **Bilingue FR/EN** — Bascule en haut à droite, langue mémorisée
-- **Animation canvas** — Réseau de connectivité animé dans le hero
-- **Parallaxe souris** — Le réseau réagit au mouvement de la souris
-- **Responsive** — Mobile, tablette et ordinateur
-- **FAQ accordéon** — 8 questions / réponses
-- **Carrousel** — 3 témoignages avec avancement automatique
-- **Compteurs animés** — Statistiques qui s'animent au défilement
-- **Accessibilité** — ARIA, skip-link, focus-visible, reduced-motion
-- **SEO** — Meta tags, JSON-LD, canonical
+## Variables d'environnement
 
----
+Copier `.env.example` vers `.env` :
 
-## Notes techniques
+```bash
+PUBLIC_SITE_URL="https://monwifi.pages.dev"
+PUBLIC_CONTACT_FORM_ENDPOINT=""
+```
 
-- Aucun framework, aucune dépendance externe (hors Google Fonts)
-- Compatible Chrome, Firefox, Safari, Edge (modernes)
-- Le formulaire de contact simule l'envoi (pas de backend)
-  → À connecter à un service SMTP ou Formspree en production
+Tant que `PUBLIC_CONTACT_FORM_ENDPOINT` est vide, le formulaire affiche
+« Formulaire non configuré » au lieu de simuler un envoi qui n'arrive nulle part.
+Les deux variables doivent aussi être déclarées dans les paramètres du projet
+Cloudflare Pages, sinon le site déployé utilise les valeurs de repli.
+
+## Déploiement
+
+Cloudflare Pages compile le dépôt à chaque push sur `main`. Paramètres à régler une
+seule fois dans le tableau de bord, section **Paramètres → Build** :
+
+| Paramètre | Valeur |
+|---|---|
+| Commande de build | `npm install && npm run build` |
+| Répertoire de sortie | `dist` |
+| Répertoire racine | `/` |
+| Variable `NODE_VERSION` | `22` |
+| Variable `PUBLIC_SITE_URL` | `https://monwifi.pages.dev` |
+| Variable `PUBLIC_CONTACT_FORM_ENDPOINT` | à remplir quand l'endpoint existe |
+
+Sans ces réglages, Cloudflare sert le dépôt tel quel et n'affiche rien, puisqu'il n'y
+a plus de `index.html` à la racine.
+
+## Structure
+
+```
+public/          Assets servis tels quels : _headers, robots.txt, favicons, og-default.png
+src/data/        Contenu typé : services.ts, faq.ts, navigation.ts
+src/components/  Composants Astro, aucun état, aucun JavaScript embarqué
+src/layouts/     BaseLayout.astro — meta, canonical, Open Graph, JSON-LD
+src/pages/       11 routes, dont sitemap.xml.ts généré depuis les routes réelles
+src/scripts/     interactions.ts — menu mobile et accordéon FAQ, rien d'autre
+src/styles/      global.css — palette, typographie, colonne vertébrale
+```
+
+## Modifier le contenu
+
+Le texte des cinq services vit entièrement dans `src/data/services.ts`. Les pages
+`src/pages/{slug}.astro` ne font que déléguer au composant `ServicePage.astro` : il
+n'y a aucun texte à modifier à deux endroits.
+
+Les questions de la FAQ sont dans `src/data/faq.ts`. Une entrée marquée
+`incomplete: true` contient encore un `[À CONFIRMER]`.
+
+## Ancien site
+
+La version Plexio est conservée au commit `99bfdac`, tag `archive/plexio-static`.
+
+```bash
+git show archive/plexio-static:index.html > /tmp/ancien-index.html
+```

@@ -1,0 +1,109 @@
+---
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { contactInfo } from '../data/navigation';
+
+interface Props {
+  title: string;
+  description: string;
+  /** Chemin de la page, commençant par « / ». Sert au canonical. */
+  path: string;
+  ogTitle?: string;
+  ogDescription?: string;
+  noindex?: boolean;
+}
+
+const {
+  title,
+  description,
+  path,
+  ogTitle = title,
+  ogDescription = description,
+  noindex = false,
+} = Astro.props;
+
+const siteUrl = (Astro.site ?? new URL('https://monwifi.pages.dev')).origin;
+const canonical = `${siteUrl}${path === '/' ? '' : path}`;
+const ogImage = `${siteUrl}/og-default.png`;
+
+/**
+ * JSON-LD LocalBusiness.
+ * Aucun champ fictif : les données non confirmées sont absentes du balisage
+ * plutôt que remplies d'une valeur inventée. areaServed, address, priceRange
+ * et openingHours réapparaîtront une fois le territoire et les heures fixés.
+ */
+const jsonLd: Record<string, unknown> = {
+  '@context': 'https://schema.org',
+  '@type': 'LocalBusiness',
+  name: 'GoWifi',
+  description:
+    "Services gérés pour immeubles multilogements : internet partagé, surveillance IP, interphone, téléphonie IP et IPTV.",
+  url: siteUrl,
+  telephone: contactInfo.telephone,
+  contactPoint: {
+    '@type': 'ContactPoint',
+    contactType: 'sales',
+    telephone: contactInfo.telephone,
+    availableLanguage: ['fr-CA'],
+  },
+};
+
+if (contactInfo.courriel) {
+  jsonLd.email = contactInfo.courriel;
+}
+---
+
+<!doctype html>
+<html lang="fr-CA" class="no-js">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    {noindex && <meta name="robots" content="noindex, follow" />}
+
+    <meta name="theme-color" content="#111820" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon.ico" sizes="32x32" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="GoWifi" />
+    <meta property="og:locale" content="fr_CA" />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:title" content={ogTitle} />
+    <meta property="og:description" content={ogDescription} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="GoWifi — services gérés pour immeubles multilogements" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={ogTitle} />
+    <meta name="twitter:description" content={ogDescription} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+  </head>
+
+  <body class="bg-technique text-charbon antialiased">
+    <a class="skip-link bg-liaison text-charbon px-4 py-2 font-semibold" href="#contenu">
+      Aller au contenu principal
+    </a>
+
+    <Header />
+
+    <main id="contenu">
+      <slot />
+    </main>
+
+    <Footer />
+
+    <script>
+      import '../scripts/interactions.ts';
+    </script>
+  </body>
+</html>

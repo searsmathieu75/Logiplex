@@ -1,0 +1,103 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { contactInfo } from '../data/navigation';
+
+const sections = [
+  {
+    titre: 'Renseignements recueillis',
+    contenu:
+      "Le formulaire du site recueille le nom, le courriel, le numéro de téléphone, le nombre de portes de l'immeuble, la ville et le message transmis. Aucun de ces champs n'est obligatoire à l'exception du nom et du courriel, nécessaires pour répondre.",
+  },
+  {
+    titre: 'Usage des renseignements',
+    contenu:
+      "Ces renseignements servent uniquement à répondre à la demande et à préparer l'appel de qualification. Ils ne sont ni vendus, ni loués, ni transmis à des fins publicitaires.",
+  },
+  {
+    titre: 'Conservation',
+    contenu:
+      "[À CONFIRMER : durée de conservation des demandes reçues et procédure de suppression à l'expiration de ce délai]",
+  },
+  {
+    titre: 'Communication à des tiers',
+    contenu:
+      "[À CONFIRMER : hébergeur du site, service de traitement du formulaire et emplacement des serveurs, incluant tout traitement hors du Québec]",
+  },
+  {
+    titre: 'Témoins et mesure d’audience',
+    contenu:
+      "Le site ne dépose aucun témoin de suivi et ne charge aucun script de mesure d'audience. Aucun outil d'analyse ne sera ajouté sans mécanisme de consentement préalable.",
+  },
+  {
+    titre: 'Images de vidéosurveillance',
+    contenu:
+      "Les images captées par les systèmes installés dans un immeuble ne sont pas visées par la présente politique de site web. Leur conservation, leur accès et le responsable désigné relèvent de l'entente de service signée avec le propriétaire ou le syndicat. [À CONFIRMER : politique distincte applicable aux images]",
+  },
+  {
+    titre: 'Vos droits',
+    contenu:
+      "Vous pouvez demander l'accès aux renseignements vous concernant, leur rectification ou leur suppression. La demande se fait auprès de la personne responsable indiquée ci-dessous.",
+  },
+  {
+    titre: 'Personne responsable de la protection des renseignements personnels',
+    contenu:
+      "[À CONFIRMER : nom, fonction et coordonnées de la personne responsable au sens de la Loi 25]",
+  },
+];
+---
+
+<BaseLayout
+  title="Politique de confidentialité | GoWifi"
+  description="Renseignements recueillis par GoWifi, usage, conservation et personne responsable de la protection des renseignements personnels."
+  path="/confidentialite"
+  noindex={true}
+>
+  <section class="bg-charbon text-technique">
+    <div class="mx-auto max-w-[88rem] px-6 md:px-12 pt-20 pb-20 md:pt-28 md:pb-24">
+      <div class="grid grid-cols-4 md:grid-cols-12 gap-8 md:gap-12">
+        <div class="col-span-4 md:col-span-3">
+          <p class="section-label text-liaison">Confidentialité</p>
+        </div>
+        <div class="col-span-4 md:col-span-8">
+          <h1 class="font-display text-section">
+            Ce que nous recueillons et ce que nous en faisons.
+          </h1>
+          <p class="mt-8 max-w-2xl text-technique/70">
+            Les mentions marquées « à confirmer » signalent une information qui doit
+            être fixée avant la mise en ligne publique. Elles sont affichées telles
+            quelles plutôt que remplacées par une formulation vague.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-technique text-charbon">
+    <div class="mx-auto max-w-[88rem] px-6 md:px-12 py-20 md:py-28">
+      <div class="grid grid-cols-4 md:grid-cols-12 gap-8 md:gap-12">
+        <div class="col-span-4 md:col-span-3">
+          <h2 class="section-label text-charbon/60">Politique</h2>
+        </div>
+        <div class="col-span-4 md:col-span-8">
+          <dl>
+            {
+              sections.map((section) => (
+                <div class="border-t border-charbon/15 py-8 last:border-b">
+                  <dt class="font-display text-2xl leading-tight">{section.titre}</dt>
+                  <dd class="mt-3 max-w-2xl text-charbon/75">{section.contenu}</dd>
+                </div>
+              ))
+            }
+          </dl>
+
+          <p class="mt-12 text-charbon/75">
+            Pour toute question : {contactInfo.personne},
+            <a href={contactInfo.telephoneHref} class="underline underline-offset-4">
+              {contactInfo.telephone}
+            </a>.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
