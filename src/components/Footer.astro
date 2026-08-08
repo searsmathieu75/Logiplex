@@ -1,6 +1,7 @@
 ---
 import { footerNav, contactInfo } from '../data/navigation';
 import { services } from '../data/services';
+import Logo from './Logo.astro';
 
 const annee = new Date().getFullYear();
 ---
@@ -9,7 +10,7 @@ const annee = new Date().getFullYear();
   <div class="mx-auto max-w-[88rem] px-6 md:px-12 py-16 md:py-24">
     <div class="grid grid-cols-4 md:grid-cols-12 gap-8 md:gap-12">
       <div class="col-span-4 md:col-span-5">
-        <p class="font-display text-3xl md:text-4xl leading-none">GoWifi</p>
+        <Logo size="lg" />
         <p class="mt-4 text-technique/70 max-w-sm">
           Services gérés pour immeubles multilogements.
         </p>

@@ -23,11 +23,11 @@
     Arial, sans-serif;
 
   /* Échelle typographique fluide pour les titres longs. */
-  --text-display: clamp(2.5rem, 1.2rem + 5.6vw, 5.5rem);
+  --text-display: clamp(2.35rem, 1.1rem + 4.4vw, 4.5rem);
   --text-display--line-height: 0.95;
   --text-display--letter-spacing: -0.02em;
 
-  --text-section: clamp(1.75rem, 1rem + 3vw, 3.25rem);
+  --text-section: clamp(1.6rem, 0.95rem + 2.5vw, 2.85rem);
   --text-section--line-height: 1.02;
   --text-section--letter-spacing: -0.01em;
 }
@@ -52,12 +52,15 @@
     -webkit-font-smoothing: antialiased;
   }
 
+  /* Casse normale : quatre lignes de capitales à la taille du H1 se lisent
+     comme un cri et non comme une phrase. La graisse condensée porte déjà
+     le caractère industriel. Les capitales restent réservées aux libellés
+     techniques (.section-label), où elles signalent une étiquette. */
   h1,
   h2,
   h3 {
     font-family: var(--font-display);
     font-weight: 700;
-    text-transform: uppercase;
     text-wrap: balance;
   }
 
@@ -133,6 +136,39 @@
     top: 0.7rem;
     width: 7px;
     height: 7px;
+    background-color: var(--color-liaison);
+  }
+
+  /* Dorsale du hero : le trait court sur toute la hauteur du bloc,
+     les nœuds sont posés aux points d'accroche (libellé, titre, action). */
+  .spine-hero {
+    position: relative;
+    padding-left: 2rem;
+  }
+
+  .spine-hero::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background-color: currentColor;
+    opacity: 0.22;
+  }
+
+  .spine-tap {
+    position: relative;
+  }
+
+  .spine-tap::before {
+    content: "";
+    position: absolute;
+    left: -2rem;
+    top: 0.55em;
+    width: 7px;
+    height: 7px;
+    margin-left: -3px;
     background-color: var(--color-liaison);
   }
 

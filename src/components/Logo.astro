@@ -1,0 +1,33 @@
+---
+interface Props {
+  /** Taille du bloc-marque. sm pour l'en-tête, lg pour le pied de page. */
+  size?: 'sm' | 'lg';
+  class?: string;
+}
+
+const { size = 'sm', class: className = '' } = Astro.props;
+
+const mark = size === 'sm' ? 'h-7 w-7' : 'h-10 w-10';
+const word = size === 'sm' ? 'text-[1.6rem]' : 'text-4xl';
+---
+
+<span class:list={['inline-flex items-center gap-2.5', className]}>
+  <!-- Le mot-symbole reprend le motif de la colonne vertébrale du site :
+       une dorsale verticale, trois dérivations, trois points de service. -->
+  <svg
+    class:list={[mark, 'shrink-0']}
+    viewBox="0 0 32 32"
+    fill="none"
+    aria-hidden="true"
+  >
+    <rect x="6" y="4" width="1.5" height="24" fill="currentColor" opacity="0.45" />
+    <rect x="6" y="7" width="13" height="1.5" fill="currentColor" opacity="0.45" />
+    <rect x="6" y="15.25" width="17" height="1.5" fill="currentColor" opacity="0.45" />
+    <rect x="6" y="23.5" width="13" height="1.5" fill="currentColor" opacity="0.45" />
+    <rect x="17" y="4.75" width="5" height="5" fill="#20C997" />
+    <rect x="21" y="13" width="5" height="5" fill="#20C997" />
+    <rect x="17" y="21.25" width="5" height="5" fill="#20C997" />
+  </svg>
+
+  <span class:list={['font-display leading-none tracking-tight', word]}>GoWifi</span>
+</span>
